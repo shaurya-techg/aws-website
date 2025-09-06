@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import LoadingWrapper from "../components/LoadingWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal'],
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -24,10 +22,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preload" href="/homePage.svg" as="image" />
+        <link rel="preload" href="/productivity.svg" as="image" />
+        <link rel="preload" href="/Description.svg" as="image" />
+        <link rel="preload" href="/Punchline.svg" as="image" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} antialiased p-0 m-0 select-none font-inter bg-black`}
+        style={{
+          WebkitTouchCallout: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+          userSelect: 'none'
+        } as React.CSSProperties}
       >
-        {children}
+        <LoadingWrapper>
+          {children}
+        </LoadingWrapper>
       </body>
     </html>
   );
