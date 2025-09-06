@@ -29,13 +29,14 @@ export default function RootLayout({
         <link rel="preload" href="/Punchline.svg" as="image" />
       </head>
       <body
-        className={`${inter.variable} antialiased p-0 m-0 select-none font-inter bg-black`}
+        className={`${inter.variable} antialiased p-0 m-0 select-none font-inter bg-[#030012] overflow-x-hidden w-full`}
         style={{
           WebkitTouchCallout: 'none',
           WebkitUserSelect: 'none',
           MozUserSelect: 'none',
           msUserSelect: 'none',
-          userSelect: 'none'
+          userSelect: 'none',
+          maxWidth: '100vw'
         } as React.CSSProperties}
       >
         <LoadingWrapper>

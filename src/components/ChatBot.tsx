@@ -1,0 +1,95 @@
+'use client';
+import React, { useState } from 'react';
+
+export default function ChatBot() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <>
+      {/* Floating Chat Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={toggleChat}
+          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+        >
+          {/* Chat Icon */}
+          <svg 
+            className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" 
+            fill="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04.97 4.43L1 23l6.57-1.97C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10zm0 18c-1.1 0-2.15-.25-3.1-.7L4 20l.7-4.9C4.25 14.15 4 13.1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
+            <circle cx="9" cy="12" r="1"/>
+            <circle cx="12" cy="12" r="1"/>
+            <circle cx="15" cy="12" r="1"/>
+          </svg>
+        </button>
+
+        {/* Chat Window - appears when button is clicked */}
+        {isOpen && (
+          <div className="absolute bottom-20 right-0 w-80 h-96 bg-[#030012] border-2 border-white/20 rounded-2xl shadow-2xl backdrop-blur-sm overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+            {/* Chat Header */}
+            <div className="bg-gradient-to-r from-[#843aed] to-[#4349ff] p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04.97 4.43L1 23l6.57-1.97C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold text-sm">AWS Cloud Assistant</h3>
+                  <p className="text-white/80 text-xs">Online</p>
+                </div>
+              </div>
+              <button 
+                onClick={toggleChat}
+                className="text-white/80 hover:text-white transition-colors duration-200"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Chat Messages Area */}
+            <div className="p-4 h-64 overflow-y-auto">
+              <div className="space-y-3">
+                {/* Bot Welcome Message */}
+                <div className="flex items-start space-x-2">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">AI</span>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-3 max-w-xs">
+                    <p className="text-white text-sm">
+                      Hi! I'm your AWS Cloud Assistant. How can I help you learn about AWS Cloud Club GGSIPU today?
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Chat Input */}
+            <div className="p-4 border-t border-white/10">
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  placeholder="Ask about AWS Cloud Club..."
+                  className="flex-1 bg-white/10 text-white placeholder-white/60 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#843aed]/50"
+                />
+                <button className="bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white p-2 rounded-lg hover:shadow-lg transition-all duration-200">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}

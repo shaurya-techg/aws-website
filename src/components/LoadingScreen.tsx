@@ -8,11 +8,11 @@ export default function LoadingScreen() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-black">
       {/* Your Logo */}
-      <img src={Logo.src} alt="Logo" className="w-80 h-auto -mb-32" />
+      <img src={Logo.src} alt="Logo" className="w-80 h-auto -mb-16" />
 
       {/* Amazon-style loading animation */}
       <motion.div
-        className="w-96 h-48"
+        className="w-64 h-32 mt-0"
         style={{ color: '#432679' }}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

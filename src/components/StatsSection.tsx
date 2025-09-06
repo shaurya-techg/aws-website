@@ -58,22 +58,22 @@ function StatCounter({ end, label, suffix = '', duration = 2000 }: StatCounterPr
   }, [isVisible, end, duration])
 
   return (
-    <div ref={countRef} className="flex-1">
-      <div className="text-6xl font-bold">
+    <div ref={countRef} className="flex-1 min-w-0">
+      <div className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight">
         {count}{suffix}
       </div>
-      <div className="text-xl">{label}</div>
+      <div className="text-sm sm:text-lg lg:text-xl mt-1 lg:mt-2">{label}</div>
     </div>
   )
 }
 
 export default function StatsSection() {
   return (
-    <div className='px-24'>
-      <div className="relative rounded-4xl p-2" style={{
+    <div className='px-4 sm:px-8 lg:px-24'>
+      <div className="relative rounded-2xl lg:rounded-4xl p-1.5 lg:p-2" style={{
         background: 'linear-gradient(to right, #481860, #3250C6)'
       }}>
-        <div className="flex rounded-4xl text-white w-full bg-black items-center justify-between text-center py-4 px-12">
+        <div className="flex flex-col sm:flex-row rounded-2xl lg:rounded-4xl text-white w-full bg-black items-center justify-between text-center py-6 sm:py-4 px-4 sm:px-8 lg:px-12 gap-6 sm:gap-4 lg:gap-0">
           <StatCounter end={250} label="MEMBERS" suffix="+" />
           <StatCounter end={20} label="AWARDS" suffix="+" />
           <StatCounter end={80} label="EVENTS" suffix="+" />

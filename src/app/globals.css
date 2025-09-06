@@ -1,5 +1,49 @@
 @import "tailwindcss";
 
+/* Hide scrollbar for all webkit browsers (Chrome, Safari, Edge, Brave, etc.) */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Hide scrollbar for all browsers */
+* {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
+html {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Ensure all elements use proper box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Prevent image detection and saving - only for images */
 img {
   -webkit-user-select: none;
@@ -47,7 +91,7 @@ h6 {
   color: #fcd8ff;
   text-align: center;
   padding: 2rem 1.5rem;
-  background: linear-gradient(to bottom right, #8504de, #4677ff);
+  background: linear-gradient(to bottom right, #4677ff, #320055);
   border-radius: 0.5rem;
 }
 
@@ -55,6 +99,6 @@ h6 {
   color: #fcd8ff;
   text-align: center;
   padding: 2rem 1.5rem;
-  background: linear-gradient(to bottom right, #b346f5, #ae0985);
+  background: linear-gradient(to bottom right, #b346f5, #0f0c42);
   border-radius: 0.5rem;
 }
