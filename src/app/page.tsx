@@ -14,7 +14,7 @@ import ClubLeadership from "@/components/ClubLeadership";
 import PhotoGallery from "@/components/PhotoGallery";
 import ChatBot from "@/components/ChatBot";
 import BePartSection from "@/components/BePartSection";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 const inter = Inter({
   subsets: ['latin'],
