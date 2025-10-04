@@ -1,33 +1,95 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+interface Message {
+  id: string;
+  text: string;
+  isBot: boolean;
+  timestamp: Date;
+}
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const footerElement = document.querySelector('footer');
-    
-    if (!footerElement) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Hide chatbot when footer is visible (intersecting)
-        setIsVisible(!entry.isIntersecting);
-      },
-      {
-        threshold: 0.1, // Trigger when 10% of footer is visible
-        rootMargin: '0px 0px -50px 0px' // Trigger slightly before footer is fully visible
-      }
-    );
-
-    observer.observe(footerElement);
-
-    return () => observer.disconnect();
-  }, []);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      text: "Hi! I'm your AWS Cloud Assistant. How can I help you learn about AWS Cloud Club GGSIPU today?",
+      isBot: true,
+      timestamp: new Date()
+    }
+  ]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
+  };
+
+  const sendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue.trim(),
+      isBot: false,
+      timestamp: new Date()
+    };
+
+    // Add user message immediately
+    setMessages(prev => [...prev, userMessage]);
+    const currentInput = inputValue;
+    setInputValue('');
+    setIsLoading(true);
+
+    try {
+      // Call FastAPI backend
+      const response = await fetch('http://127.0.0.1:8000/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: currentInput
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Add bot response
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: data.answer,
+        isBot: true,
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      
+      // Add error message
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Sorry, I'm having trouble connecting to the server. Please try again later.",
+        isBot: true,
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
@@ -81,17 +143,42 @@ export default function ChatBot() {
             {/* Chat Messages Area */}
             <div className="p-4 h-64 overflow-y-auto">
               <div className="space-y-3">
-                {/* Bot Welcome Message */}
-                <div className="flex items-start space-x-2">
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs font-bold">AI</span>
+                {messages.map((message) => (
+                  <div key={message.id} className={`flex items-start space-x-2 ${message.isBot ? '' : 'flex-row-reverse space-x-reverse'}`}>
+                    {message.isBot ? (
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">AI</span>
+                      </div>
+                    ) : (
+                      <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">U</span>
+                      </div>
+                    )}
+                    <div className={`rounded-lg p-3 max-w-xs ${
+                      message.isBot 
+                        ? 'bg-white/10' 
+                        : 'bg-gradient-to-r from-[#843aed] to-[#4349ff]'
+                    }`}>
+                      <p className="text-white text-sm">{message.text}</p>
+                    </div>
                   </div>
-                  <div className="bg-white/10 rounded-lg p-3 max-w-xs">
-                    <p className="text-white text-sm">
-                      Hi! I'm your AWS Cloud Assistant. How can I help you learn about AWS Cloud Club GGSIPU today?
-                    </p>
+                ))}
+                
+                {/* Loading indicator */}
+                {isLoading && (
+                  <div className="flex items-start space-x-2">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-xs font-bold">AI</span>
+                    </div>
+                    <div className="bg-white/10 rounded-lg p-3 max-w-xs">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                        <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -100,10 +187,18 @@ export default function ChatBot() {
               <div className="flex space-x-2">
                 <input
                   type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
                   placeholder="Ask about AWS Cloud Club..."
-                  className="flex-1 bg-white/10 text-white placeholder-white/60 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#843aed]/50"
+                  disabled={isLoading}
+                  className="flex-1 bg-white/10 text-white placeholder-white/60 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#843aed]/50 disabled:opacity-50"
                 />
-                <button className="bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white p-2 rounded-lg hover:shadow-lg transition-all duration-200">
+                <button 
+                  onClick={sendMessage}
+                  disabled={!inputValue.trim() || isLoading}
+                  className="bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white p-2 rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>

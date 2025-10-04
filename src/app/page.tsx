@@ -12,7 +12,7 @@ import ClubLeadership from "@/components/ClubLeadership";
 import PhotoGallery from "@/components/PhotoGallery";
 import ChatBot from "@/components/ChatBot";
 import BePartSection from "@/components/BePartSection";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import { motion } from "framer-motion";
 import groupPhoto from "../../public/groupPhoto.jpg";
 import { g } from "framer-motion/client";
