@@ -1,0 +1,135 @@
+"use server"
+
+import { prisma } from "@/lib/prisma";
+import cloudinary from "@/lib/cloudinary";
+
+export async function createTeamMember(formData: FormData) {
+  try {
+    const name = formData.get("name") as string;
+    const position = formData.get("position") as string;
+    const linkedin = formData.get("linkedin") as string;
+    const department = formData.get("department") as string;
+    const image = formData.get("image") as File;
+
+    let imageUrl = "";
+
+    // Upload image to Cloudinary if provided
+    if (image && image.size > 0) {
+      const bytes = await image.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "team-members",
+            resource_type: "image",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(buffer);
+      });
+
+      imageUrl = (uploadResponse as any).secure_url;
+    }
+
+    // Create team member in database
+    const teamMember = await prisma.teamMember.create({
+      data: {
+        name,
+        position,
+        linkedin,
+        department,
+        imageUrl,
+      },
+    });
+
+    return { success: true, teamMember };
+  } catch (error) {
+    console.error("Error creating team member:", error);
+    return { success: false, error: "Failed to create team member" };
+  }
+}
+
+export async function getTeamMembers() {
+  try {
+    const teamMembers = await prisma.teamMember.findMany({
+      where: {
+        isActive: true
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return { teamMembers };
+  } catch (error) {
+    console.error("Error fetching team members:", error);
+    return { teamMembers: [] };
+  }
+}
+
+export async function deleteTeamMember(id: string) {
+  try {
+    await prisma.teamMember.delete({
+      where: {
+        id,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting team member:", error);
+    return { success: false, error: "Failed to delete team member" };
+  }
+}
+
+export async function updateTeamMember(id: string, formData: FormData) {
+  try {
+    const name = formData.get("name") as string;
+    const position = formData.get("position") as string;
+    const linkedin = formData.get("linkedin") as string;
+    const department = formData.get("department") as string;
+    const image = formData.get("image") as File;
+
+    let updateData: any = {
+      name,
+      position,
+      linkedin,
+      department,
+    };
+
+    // Upload new image to Cloudinary if provided
+    if (image && image.size > 0) {
+      const bytes = await image.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+
+      const uploadResponse = await new Promise((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "team-members",
+            resource_type: "image",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        ).end(buffer);
+      });
+
+      updateData.imageUrl = (uploadResponse as any).secure_url;
+    }
+
+    // Update team member in database
+    const teamMember = await prisma.teamMember.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return { success: true, teamMember };
+  } catch (error) {
+    console.error("Error updating team member:", error);
+    return { success: false, error: "Failed to update team member" };
+  }
+}

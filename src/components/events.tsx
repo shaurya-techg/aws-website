@@ -86,12 +86,12 @@ export default function Events() {
   return (
     <div className="py-8 sm:py-12 md:py-14 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-10">
       <div className="mb-8 sm:mb-12 md:mb-14 lg:mb-16">
-        <h1 className={`text-4xl sm:text-3xl md:text-4xl lg:text-6xl xl:text-8xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent ${inter.className}`}>
+        <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent ${inter.className}`}>
             Events
         </h1>
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-5xl mx-auto">
         {/* Main Slideshow Container */}
         <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-900/80 to-black/90 backdrop-blur-sm border-2 border-white/30">
           

@@ -1,8 +1,30 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const footerElement = document.querySelector('footer');
+    
+    if (!footerElement) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Hide chatbot when footer is visible (intersecting)
+        setIsVisible(!entry.isIntersecting);
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of footer is visible
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before footer is fully visible
+      }
+    );
+
+    observer.observe(footerElement);
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -10,12 +32,13 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Floating Chat Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={toggleChat}
-          className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group"
-        >
+      {/* Floating Chat Button - only show when not at footer */}
+      {isVisible && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <button
+            onClick={toggleChat}
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+          >
           {/* Chat Icon */}
           <svg 
             className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" 
@@ -89,7 +112,8 @@ export default function ChatBot() {
             </div>
           </div>
         )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

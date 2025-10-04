@@ -18,14 +18,14 @@ export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProp
     <div className={`relative group ${isLead ? 'col-span-full mx-auto' : ''}`}>
       <div className={`relative ${
         isLead 
-          ? 'w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64' 
-          : 'w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44'
+          ? 'w-48 h-64 sm:w-56 sm:h-56 lg:w-64 lg:h-80' 
+          : 'w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-64'
       } mx-auto`}>
         {/* Gradient Border */}
-        <div className={`absolute inset-0 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] p-1 ${
+        <div className={`absolute inset-0 rounded-3xl bg-white p-1 ${
           isLead ? 'group-hover:scale-105' : 'group-hover:scale-110'
         } transition-transform duration-300`}>
-          <div className="w-full h-full rounded-full bg-gray-900/90 backdrop-blur-sm overflow-hidden">
+          <div className="w-full h-full rounded-3xl bg-gray-900/90 backdrop-blur-sm overflow-hidden">
             <img 
               src={member.image} 
               alt={member.name}
@@ -35,7 +35,7 @@ export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProp
         </div>
         
         {/* Social Links Overlay */}
-        <div className="absolute inset-0 rounded-full bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-3xl bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           {member.linkedin && (
             <a 
               href={member.linkedin} 
@@ -75,7 +75,7 @@ export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProp
       </div>
       
       {/* Co-Leads - Grid layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16">
         {coLeads.slice(0, 3).map((coLead, index) => (
           <MemberCard key={index} member={coLead} />
         ))}

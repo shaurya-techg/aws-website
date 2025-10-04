@@ -1,16 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '../../public/Logo.svg';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showNavbar, setShowNavbar] = useState(true);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY < 50) {
+                setShowNavbar(true);
+            } else if (currentScrollY > lastScrollY) {
+                setShowNavbar(false); // scrolling down
+            } else {
+                setShowNavbar(true); // scrolling up
+            }
+            setLastScrollY(currentScrollY);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
     return (
-    <div className="w-full relative px-2 sm:px-4 lg:px-6">
+    <div className={`w-full px-10 sm:px-20 lg:px-30 fixed top-0 left-0 z-50 bg-[#030012]/95 backdrop-blur-sm transition-all duration-300 ${showNavbar ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
         <div className="w-full flex justify-between items-center py-2 sm:py-3 lg:py-4">
             {/* Left side - Logo */}
             <div className='flex items-center'>

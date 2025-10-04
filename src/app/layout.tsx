@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import LoadingWrapper from "../components/LoadingWrapper";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,6 +41,7 @@ export default function RootLayout({
         } as React.CSSProperties}
       >
         <LoadingWrapper>
+          <Navbar />
           {children}
         </LoadingWrapper>
       </body>

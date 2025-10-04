@@ -63,9 +63,9 @@ export default function PhotoGallery() {
   const getSizeClasses = (size: string) => {
     switch (size) {
       case 'large':
-        return 'col-span-2 row-span-2 sm:col-span-3 sm:row-span-2 lg:col-span-2 lg:row-span-2';
+        return 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2';
       case 'medium':
-        return 'col-span-2 row-span-1 sm:col-span-2 sm:row-span-1 lg:col-span-1 lg:row-span-2';
+        return 'col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-2';
       case 'small':
         return 'col-span-1 row-span-1';
       default:
@@ -75,11 +75,11 @@ export default function PhotoGallery() {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent mb-8 sm:mb-12 lg:mb-16">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent mb-6 sm:mb-8 lg:mb-12">
         Our Journey
       </h2>
       
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 auto-rows-[150px] sm:auto-rows-[180px] lg:auto-rows-[200px]">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 auto-rows-[120px] sm:auto-rows-[140px] md:auto-rows-[160px] lg:auto-rows-[180px]">
         {photos.map((photo) => (
           <div
             key={photo.id}
@@ -101,8 +101,8 @@ export default function PhotoGallery() {
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
               
               {/* Photo Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 lg:p-4 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-xs sm:text-sm lg:text-base font-semibold leading-tight">
+              <div className="absolute bottom-0 left-0 right-0 p-1 sm:p-2 lg:p-3 bg-gradient-to-t from-black/90 to-transparent opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+                <p className="text-white text-xs sm:text-sm font-semibold leading-tight truncate">
                   {photo.alt}
                 </p>
               </div>
@@ -120,10 +120,10 @@ export default function PhotoGallery() {
       </div>
       
       {/* View All Photos Button */}
-      <div className="flex justify-center mt-8 sm:mt-12 lg:mt-16">
+      <div className="flex justify-center mt-6 sm:mt-8 lg:mt-12">
         <div className="relative inline-block">
           <button 
-            className="relative px-6 sm:px-8 py-3 sm:py-4 font-semibold rounded-full text-sm sm:text-base hover:scale-105 transition-all duration-300 border-2 border-transparent text-white"
+            className="relative px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 font-semibold rounded-full text-xs sm:text-sm lg:text-base hover:scale-105 transition-all duration-300 border-2 border-transparent text-white"
             style={{
               background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)) padding-box, linear-gradient(45deg, #843aed, #4349ff) border-box'
             }}
