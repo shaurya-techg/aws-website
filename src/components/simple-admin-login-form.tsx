@@ -37,7 +37,7 @@ export const SimpleAdminLoginForm = () => {
                     type="email"
                     required
                     className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
-                    placeholder="tanwarvikash42@gmail.com"
+                    placeholder="Email"
                 />
             </div>
             <div className="space-y-2">
@@ -50,7 +50,7 @@ export const SimpleAdminLoginForm = () => {
                     type="password"
                     required
                     className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
-                    placeholder="Enter your password"
+                    placeholder="Password"
                 />
             </div>
             <button

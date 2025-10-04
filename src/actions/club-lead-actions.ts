@@ -60,10 +60,6 @@ export async function getClubLeads() {
       where: {
         isActive: true
       },
-      orderBy: [
-        { priority: "asc" },
-        { createdAt: "desc" }
-      ],
     });
 
     return { clubLeads };
