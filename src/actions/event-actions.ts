@@ -66,6 +66,19 @@ export async function getEvents() {
   }
 }
 
+export async function getLatestEvents(limit: number = 4) {
+  try {
+    const events = await prisma.event.findMany({
+      orderBy: { date: "desc" },
+      take: limit,
+    });
+    return { events };
+  } catch (error) {
+    console.error("Error fetching latest events:", error);
+    return { events: [] };
+  }
+}
+
 export async function deleteEvent(id: string) {
   try {
     await prisma.event.delete({

@@ -9,7 +9,6 @@ import Teams from "@/components/Teams";
 import './globals.css';
 import Events from "@/components/events";
 import ClubLeadership from "@/components/ClubLeadership";
-import PhotoGallery from "@/components/PhotoGallery";
 import ChatBot from "@/components/ChatBot";
 import BePartSection from "@/components/BePartSection";
 import Footer from "@/components/Footer";

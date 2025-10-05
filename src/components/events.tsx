@@ -3,6 +3,7 @@ import left from '../../public/Left.svg'
 import right from '../../public/Right.svg'
 import React, { useState, useEffect } from 'react';
 import { Inter } from "next/font/google";
+import { getLatestEvents } from '@/actions/event-actions';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -11,77 +12,90 @@ const inter = Inter({
 });
 
 interface EventSlide {
-  id: number;
+  id: string;
   title: string;
-  description: string;
-  date: string;
-  location: string;
-  image: string;
-  category: string;
+  description: string | null;
+  date: Date;
+  location: string | null;
+  link: string | null;
+  imageUrl: string | null;
 }
 
 export default function Events() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [events, setEvents] = useState<EventSlide[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const slides: EventSlide[] = [
-    {
-      id: 1,
-      title: "AWS Cloud Fundamentals Workshop",
-      description: "Join us for an intensive hands-on workshop covering AWS Cloud basics, EC2, S3, and Lambda functions. Perfect for beginners!",
-      date: "March 15, 2025",
-      location: "GGSIPU Campus, Room 301",
-      image: "/events/aws-workshop.jpg",
-      category: "Workshop"
-    },
-    {
-      id: 2,
-      title: "AI/ML with AWS SageMaker",
-      description: "Explore machine learning capabilities with AWS SageMaker. Build, train, and deploy ML models in the cloud.",
-      date: "March 22, 2025",
-      location: "Virtual Event",
-      image: "/events/ai-ml-event.jpg",
-      category: "Seminar"
-    },
-    {
-      id: 3,
-      title: "Cloud Security Best Practices",
-      description: "Learn about AWS security services, IAM, encryption, and compliance. Essential for cloud professionals.",
-      date: "March 29, 2025",
-      location: "GGSIPU Auditorium",
-      image: "/events/security-event.jpg",
-      category: "Conference"
-    },
-    {
-      id: 4,
-      title: "DevOps with AWS Pipeline",
-      description: "Master CI/CD pipelines using AWS CodeCommit, CodeBuild, and CodeDeploy. Build automated deployment workflows.",
-      date: "April 5, 2025",
-      location: "Tech Lab, GGSIPU",
-      image: "/events/devops-event.jpg",
-      category: "Bootcamp"
-    }
-  ];
+  // Fetch events from database
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const { events } = await getLatestEvents(4);
+        setEvents(events);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
 
   // Auto-advance slides every 5 seconds
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    if (events.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % events.length);
+      }, 5000);
 
-    return () => clearInterval(timer);
-  }, [slides.length]);
+      return () => clearInterval(timer);
+    }
+  }, [events.length]);
+
+  // Function to check if event has ended
+  const isEventEnded = (eventDate: Date) => {
+    return new Date() > new Date(eventDate);
+  };
+
+  // Function to format date
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentSlide((prev) => (prev + 1) % events.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrentSlide((prev) => (prev - 1 + events.length) % events.length);
   };
+
+  // Conditional rendering after all hooks
+  if (loading) {
+    return (
+      <div className="w-full py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      </div>
+    );
+  }
+
+  if (events.length === 0) {
+    return (
+      <div className="w-full py-16 text-center">
+        <h2 className="text-3xl font-bold text-white mb-4">No Events Available</h2>
+        <p className="text-gray-400">Check back later for upcoming events!</p>
+      </div>
+    );
+  }
 
   return (
     <div className="py-8 sm:py-12 md:py-14 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-10">
@@ -100,54 +114,78 @@ export default function Events() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
-            {slides.map((slide, index) => (
-              <div key={slide.id} className="w-full flex-shrink-0">
+            {events.map((event, index) => (
+              <div key={event.id} className="w-full flex-shrink-0">
                 <div className="flex flex-col lg:flex-row items-center min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
                   {/* Image Section */}
-                  <div className="w-full lg:w-1/2 h-48 sm:h-60 md:h-72 lg:h-full bg-gradient-to-br from-[#8504DE] to-[#4677FF] flex items-center justify-center">
-                    <div className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-50 text-center px-2">
-                      {slide.category}
-                    </div>
+                  <div className="w-full lg:w-1/2 h-48 sm:h-60 md:h-72 lg:h-full bg-gradient-to-br from-[#8504DE] to-[#4677FF] flex items-center justify-center overflow-hidden">
+                    {event.imageUrl ? (
+                      <img 
+                        src={event.imageUrl} 
+                        alt={event.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-50 text-center px-2">
+                        Event
+                      </div>
+                    )}
                   </div>
                   
                   {/* Content Section */}
                   <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12">
                     <div className="mb-3 sm:mb-4">
-                      <span className="inline-block px-2 sm:px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-xs sm:text-sm font-semibold rounded-full">
-                        {slide.category}
+                      <span className={`inline-block px-2 sm:px-3 py-1 backdrop-blur-sm border text-xs sm:text-sm font-semibold rounded-full ${
+                        isEventEnded(event.date) 
+                          ? 'bg-red-500/20 border-red-500/30 text-red-300' 
+                          : 'bg-green-500/20 border-green-500/30 text-green-300'
+                      }`}>
+                        {isEventEnded(event.date) ? 'Event Ended' : 'Upcoming Event'}
                       </span>
                     </div>
                     
                     <h2 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#FCD8FF] mb-3 sm:mb-4 leading-tight ${inter.className}`}>
-                      {slide.title}
+                      {event.title}
                     </h2>
                     
                     <p className={`text-white text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 ${inter.className}`}>
-                      {slide.description}
+                      {event.description || 'No description available'}
                     </p>
                     
                     <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
                       <div className="flex items-center text-white text-sm sm:text-base">
                         <span className="font-semibold mr-2">📅 Date:</span>
-                        <span>{slide.date}</span>
+                        <span>{formatDate(event.date)}</span>
                       </div>
-                      <div className="flex items-center text-white text-sm sm:text-base">
-                        <span className="font-semibold mr-2">📍 Location:</span>
-                        <span>{slide.location}</span>
-                      </div>
+                      {event.location && (
+                        <div className="flex items-center text-white text-sm sm:text-base">
+                          <span className="font-semibold mr-2">📍 Location:</span>
+                          <span>{event.location}</span>
+                        </div>
+                      )}
                     </div>
                     
                     <div className="relative inline-block">
-                      <button 
-                        className="relative px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full text-sm sm:text-base hover:scale-105 transition-all duration-300 border-2 border-transparent text-white bg-gradient-to-br from-gray-900/80 to-black/90 backdrop-blur-sm"
-                        style={{
-                          background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)) padding-box, linear-gradient(45deg, #843aed, #4349ff) border-box'
-                        }}
-                      >
-                        <span className="bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
-                          Register Now
-                        </span>
-                      </button>
+                      {isEventEnded(event.date) ? (
+                        <button 
+                          className="relative px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full text-sm sm:text-base border-2 border-red-500/30 text-red-300 bg-red-500/10 cursor-not-allowed"
+                          disabled
+                        >
+                          Event Ended
+                        </button>
+                      ) : (
+                        <button 
+                          className="relative px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full text-sm sm:text-base hover:scale-105 transition-all duration-300 border-2 border-transparent text-white bg-gradient-to-br from-gray-900/80 to-black/90 backdrop-blur-sm"
+                          style={{
+                            background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)) padding-box, linear-gradient(45deg, #843aed, #4349ff) border-box'
+                          }}
+                          onClick={() => event.link && window.open(event.link, '_blank')}
+                        >
+                          <span className="bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
+                            Learn More
+                          </span>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -173,7 +211,7 @@ export default function Events() {
 
         {/* Slide Indicators */}
         <div className="flex justify-center space-x-2 sm:space-x-3 mt-6 sm:mt-8 lg:mt-10">
-          {slides.map((_, index) => (
+          {events.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
