@@ -91,7 +91,6 @@ export default function Home() {
           <p className="text-md sm:text-base md:text-xl lg:text-xl leading-relaxed">
             The AWS Cloud Club helps students explore cloud technologies and their real-world applications in areas like security, AI, and business analytics. Through hands-on projects, members gain technical and business expertise, building industry-relevant skills for the future.<br />
             Furthermore, the AWS Cloud Club will give students hands-on experience through projects in the AWS cloud, allowing students to develop both technical and business expertise in the cloud. This club will provide students with industry skills currently in high demand.
-
           </p>
           </div>
         </div>
@@ -103,49 +102,10 @@ export default function Home() {
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
         viewport={{ once: true, amount: 0.3 }}
       >
-        <ClubLeadership 
-          clubLead={{
-            name: "John Doe",
-            position: "Club President",
-            image: "/team/president.jpg",
-            linkedin: "https://linkedin.com/in/johndoe"
-          }}
-          coLeads={[
-            {
-              name: "Jane Smith",
-              position: "Vice President",
-              image: "/team/vice-president.jpg",
-              linkedin: "https://linkedin.com/in/janesmith"
-            },
-            {
-              name: "Mike Johnson",
-              position: "Technical Lead",
-              image: "/team/tech-lead.jpg",
-              linkedin: "https://linkedin.com/in/mikejohnson"
-            },
-            {
-              name: "Sarah Wilson",
-              position: "Events Coordinator",
-              image: "/team/events-coordinator.jpg",
-              linkedin: "https://linkedin.com/in/sarahwilson"
-            }
-          ]}
-        />
+        <ClubLeadership />
       </motion.div>
       </div>
         
-      
-      {/* Photo Gallery */}
-      <motion.div 
-        className="my-8 sm:my-12 lg:my-16"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        <PhotoGallery />
-      </motion.div>
-      
       <motion.div 
         className="my-8 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}

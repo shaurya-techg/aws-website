@@ -1,25 +1,50 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getClubLeadership } from '@/actions/club-lead-actions';
 
 interface LeadershipMember {
+  id: string;
   name: string;
-  position: string;
-  image: string;
-  linkedin?: string;
+  role: string;
+  title?: string | null;
+  imageUrl?: string | null;
+  linkedin?: string | null;
 }
 
-interface ClubLeadershipProps {
-  clubLead: LeadershipMember;
-  coLeads: LeadershipMember[];
-}
+export default function ClubLeadership() {
+  const [leads, setLeads] = useState<LeadershipMember[]>([]);
+  const [coLeads, setCoLeads] = useState<LeadershipMember[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProps) {
+  useEffect(() => {
+    const fetchLeadership = async () => {
+      try {
+        const { leads, coLeads } = await getClubLeadership();
+        setLeads(leads);
+        setCoLeads(coLeads);
+      } catch (error) {
+        console.error('Error fetching leadership data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeadership();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full py-16 flex justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      </div>
+    );
+  }
   const MemberCard = ({ member, isLead = false }: { member: LeadershipMember; isLead?: boolean }) => (
     <div className={`relative group ${isLead ? 'col-span-full mx-auto' : ''}`}>
       <div className={`relative ${
         isLead 
-          ? 'w-48 h-64 sm:w-56 sm:h-56 lg:w-64 lg:h-80' 
-          : 'w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-64'
+          ? 'w-48 h-64 sm:w-56 sm:h-72 lg:w-64 lg:h-80' 
+          : 'w-32 h-40 sm:w-40 sm:h-48 lg:w-44 lg:h-56'
       } mx-auto`}>
         {/* Gradient Border */}
         <div className={`absolute inset-0 rounded-3xl bg-white p-1 ${
@@ -27,7 +52,7 @@ export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProp
         } transition-transform duration-300`}>
           <div className="w-full h-full rounded-3xl bg-gray-900/90 backdrop-blur-sm overflow-hidden">
             <img 
-              src={member.image} 
+              src={member.imageUrl || '/default-avatar.svg'} 
               alt={member.name}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
@@ -61,25 +86,48 @@ export default function ClubLeadership({ clubLead, coLeads }: ClubLeadershipProp
         <p className={`text-white font-semibold ${
           isLead ? 'text-base sm:text-lg lg:text-xl' : 'text-sm sm:text-base lg:text-lg'
         }`}>
-          {member.position}
+          {member.title || member.role}
         </p>
       </div>
     </div>
   );
 
+  // If no leadership data, don't render the component
+  if (leads.length === 0 && coLeads.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full max-w-6xl mx-auto p-6 sm:p-8 lg:p-10">
-      {/* Club Lead - Centered at top */}
-      <div className="mb-12 sm:mb-16 lg:mb-20">
-        <MemberCard member={clubLead} isLead={true} />
+      {/* Section Title */}
+      <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent mb-4">
+          Club Leadership
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-[#843aed] to-[#4349ff] mx-auto rounded-full"></div>
       </div>
+
+      {/* Club Leads - Bigger photos */}
+      {leads.length > 0 && (
+        <div className="mb-12 sm:mb-16 lg:mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 justify-items-center">
+            {leads.map((lead) => (
+              <MemberCard key={lead.id} member={lead} isLead={true} />
+            ))}
+          </div>
+        </div>
+      )}
       
-      {/* Co-Leads - Grid layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16">
-        {coLeads.slice(0, 3).map((coLead, index) => (
-          <MemberCard key={index} member={coLead} />
-        ))}
-      </div>
+      {/* Co-Leads - Smaller photos */}
+      {coLeads.length > 0 && (
+        <div className="flex mb-12 sm:mb-16 lg:mb-20 justify-center ">
+          <div className="flex flex-col md:flex-row gap-6 sm:gap-16 lg:gap-24 justify-items-center">
+            {coLeads.map((coLead) => (
+              <MemberCard key={coLead.id} member={coLead} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

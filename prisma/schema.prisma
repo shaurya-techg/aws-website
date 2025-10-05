@@ -42,8 +42,6 @@ model ClubLead {
   id          String   @id @default(cuid())
   name        String
   role        String   // "Lead" or "Co-Lead"
-  title       String?  // Optional title like "President", "Vice President", etc.
-  bio         String?
   imageUrl    String?
   linkedin    String?
   isActive    Boolean  @default(true)

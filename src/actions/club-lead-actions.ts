@@ -7,8 +7,6 @@ export async function createClubLead(formData: FormData) {
   try {
     const name = formData.get("name") as string;
     const role = formData.get("role") as string;
-    const title = formData.get("title") as string;
-    const bio = formData.get("bio") as string;
     const linkedin = formData.get("linkedin") as string;
     const image = formData.get("image") as File;
 
@@ -40,8 +38,6 @@ export async function createClubLead(formData: FormData) {
       data: {
         name,
         role,
-        title,
-        bio,
         linkedin,
         imageUrl,
       },
@@ -69,6 +65,28 @@ export async function getClubLeads() {
   }
 }
 
+export async function getClubLeadership() {
+  try {
+    const clubLeads = await prisma.clubLead.findMany({
+      where: {
+        isActive: true
+      },
+      orderBy: {
+        createdAt: 'asc'
+      }
+    });
+
+    // Separate leads and co-leads
+    const leads = clubLeads.filter(lead => lead.role === "Lead");
+    const coLeads = clubLeads.filter(lead => lead.role === "Co-Lead");
+
+    return { leads, coLeads };
+  } catch (error) {
+    console.error("Error fetching club leadership:", error);
+    return { leads: [], coLeads: [] };
+  }
+}
+
 export async function deleteClubLead(id: string) {
   try {
     await prisma.clubLead.delete({
@@ -88,16 +106,12 @@ export async function updateClubLead(id: string, formData: FormData) {
   try {
     const name = formData.get("name") as string;
     const role = formData.get("role") as string;
-    const title = formData.get("title") as string;
-    const bio = formData.get("bio") as string;
     const linkedin = formData.get("linkedin") as string;
     const image = formData.get("image") as File;
 
     let updateData: any = {
       name,
       role,
-      title,
-      bio,
       linkedin,
     };
 

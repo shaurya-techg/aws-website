@@ -116,25 +116,6 @@ export default function ManageClubLeads() {
                 </div>
               </div>
               <div>
-                <div>
-                  <label className="block text-white mb-2">Title (Optional)</label>
-                  <input
-                    name="title"
-                    type="text"
-                    placeholder="e.g., President, Vice President"
-                    className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className="block text-white mb-2">Bio/Description</label>
-                <textarea
-                  name="bio"
-                  rows={3}
-                  className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
-                />
-              </div>
-              <div>
                 <label className="block text-white mb-2">LinkedIn URL</label>
                 <input
                   name="linkedin"
@@ -188,15 +169,9 @@ export default function ManageClubLeads() {
                             />
                           )}
                           <h4 className="text-lg font-semibold text-white mb-1">{lead.name}</h4>
-                          {lead.title && (
-                            <p className="text-[#843aed] text-sm mb-2">{lead.title}</p>
-                          )}
                           <p className="text-gray-400 text-sm mb-2">Role: {lead.role}</p>
                           {lead.year && (
                             <p className="text-gray-400 text-sm mb-2">Year: {lead.year}</p>
-                          )}
-                          {lead.bio && (
-                            <p className="text-gray-400 text-sm mb-3">{lead.bio}</p>
                           )}
                           <div className="flex flex-wrap gap-2 mb-3">
                             {lead.email && (
@@ -227,9 +202,6 @@ export default function ManageClubLeads() {
                             )}
                           </div>
                           <div className="flex gap-2">
-                            <span className="text-xs bg-[#843aed] text-white px-2 py-1 rounded">
-                              Priority: {lead.priority}
-                            </span>
                             <button
                               onClick={() => handleDelete(lead.id)}
                               className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors"
