@@ -19,10 +19,11 @@ export default function Footer() {
 
                     {/* Quick Links */}
                     <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-white">Quick Links</h4>
                         <ul className="space-y-2 text-gray-300 text-sm">
-                            <li><a href="#" className="hover:text-[#843aed] transition-colors duration-300">About Us</a></li>
-                            <li><a href="#" className="hover:text-[#843aed] transition-colors duration-300">Events</a></li>
-                            <li><a href="#" className="hover:text-[#843aed] transition-colors duration-300">Community Us</a></li>
+                            <li><a href="/" className="hover:text-[#843aed] transition-colors duration-300">Home</a></li>
+                            <li><a href="/events" className="hover:text-[#843aed] transition-colors duration-300">Events</a></li>
+                            <li><a href="/teams" className="hover:text-[#843aed] transition-colors duration-300">Teams</a></li>
                         </ul>
                     </div>
 
@@ -69,9 +70,9 @@ export default function Footer() {
                             © 2025 AWS Cloud Club GGSIPU
                         </div>
                         <div className="flex space-x-6 text-sm text-gray-400">
-                            <a href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
-                            <a href="#" className="hover:text-white transition-colors duration-300">Terms of Service</a>
-                            <a href="#" className="hover:text-white transition-colors duration-300">Contact</a>
+                            <a href="" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
+                            <a href="" className="hover:text-white transition-colors duration-300">Terms of Service</a>
+                            <a href="" className="hover:text-white transition-colors duration-300">Contact</a>
                         </div>
                     </div>
                 </div>

@@ -62,11 +62,16 @@ export async function getTeamMembers() {
         createdAt: "desc",
       },
     });
-
-    return { teamMembers };
+    const SW = teamMembers.filter(member => member.department === "Software Development");
+    const AI = teamMembers.filter(member => member.department === "Artificial Intelligence");
+    const CC = teamMembers.filter(member => member.department === "Cloud Computing");
+    const DE = teamMembers.filter(member => member.department === "Design");
+    const PR = teamMembers.filter(member => member.department === "PR & Sponsorship");
+    const SM = teamMembers.filter(member => member.department === "Social Media");
+    return { SW, AI, CC, DE, PR, SM };
   } catch (error) {
     console.error("Error fetching team members:", error);
-    return { teamMembers: [] };
+    return { SW: [], AI: [], CC: [], DE: [], PR: [], SM: [] };
   }
 }
 

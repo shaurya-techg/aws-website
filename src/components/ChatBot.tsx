@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Message {
   id: string;
@@ -11,26 +11,32 @@ interface Message {
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [messages, setMessages] = useState<Message[]>([
-    {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [messageCounter, setMessageCounter] = useState(1);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Initialize with welcome message only on client side
+    setMessages([{
       id: '1',
       text: "Hi! I'm your AWS Cloud Assistant. How can I help you learn about AWS Cloud Club GGSIPU today?",
       isBot: true,
       timestamp: new Date()
-    }
-  ]);
-  const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+    }]);
+  }, []);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
 
   const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputValue.trim() || isLoading || !isClient) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: (messageCounter + 1).toString(),
       text: inputValue.trim(),
       isBot: false,
       timestamp: new Date()
@@ -41,6 +47,7 @@ export default function ChatBot() {
     const currentInput = inputValue;
     setInputValue('');
     setIsLoading(true);
+    setMessageCounter(prev => prev + 1);
 
     try {
       // Call FastAPI backend
@@ -62,25 +69,27 @@ export default function ChatBot() {
       
       // Add bot response
       const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: (messageCounter + 2).toString(),
         text: data.answer,
         isBot: true,
         timestamp: new Date()
       };
 
       setMessages(prev => [...prev, botMessage]);
+      setMessageCounter(prev => prev + 1);
     } catch (error) {
       console.error('Error sending message:', error);
       
       // Add error message
       const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: (messageCounter + 2).toString(),
         text: "Sorry, I'm having trouble connecting to the server. Please try again later.",
         isBot: true,
         timestamp: new Date()
       };
 
       setMessages(prev => [...prev, errorMessage]);
+      setMessageCounter(prev => prev + 1);
     } finally {
       setIsLoading(false);
     }

@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
@@ -89,7 +91,7 @@ const Teams = () => {
         >        
         {/* Team Components with staggered animation */}
         {[
-          { component: <TeamComponent path={software.src} name="Software Development" description="Explore the world of AI and machine learning." style="primary" href="/teams/software_dev" />, delay: 1.6 },
+          { component: <TeamComponent path={software.src} name="Software Development" description="Learn how to build innovative software solutions." style="primary" href="/teams/software_dev" />, delay: 1.6 },
           { component: <TeamComponent path={ai.src} name="AI Development" description="Dive into the future of technology with AI." style="secondary" href="/teams/ai_dev" />, delay: 1.7 },
           { component: <TeamComponent path={cc.src} name="Cloud Computing" description="Learn about cloud infrastructure and services." style="primary" href="/teams/cloud" />, delay: 1.8 },
           { component: <TeamComponent path={des.src} name="Design" description="Unleash your creativity in design and UX." style="secondary" href="/teams/design" />, delay: 1.9 },

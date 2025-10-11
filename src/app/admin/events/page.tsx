@@ -64,23 +64,23 @@ export default function ManageEvents() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#180235] to-[#030012] pt-32 ">
+    <div className="min-h-screen bg-gradient-to-b from-[#180235] to-[#030012] pt-20 sm:pt-24 lg:pt-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-[#181828] rounded-xl p-6 mb-6">
-          <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
+        <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
               Manage Events
             </h1>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 py-2 rounded-lg transition-colors text-sm sm:text-base"
               >
                 {showForm ? "Cancel" : "Add Event"}
               </button>
               <button
                 onClick={() => router.push("/admin/dashboard")}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors text-sm sm:text-base"
               >
                 Back to Dashboard
               </button>
@@ -89,66 +89,66 @@ export default function ManageEvents() {
         </div>
 
         {showForm && (
-          <div className="bg-[#181828] rounded-xl p-6 mb-6">
-            <h2 className="text-xl font-semibold text-white mb-4">Create New Event</h2>
+          <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">Create New Event</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-white mb-2">Title</label>
+                <label className="block text-white mb-2 text-sm sm:text-base">Title</label>
                 <input
                   name="title"
                   type="text"
                   required
-                  className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                  className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                 />
               </div>
               <div>
-                <label className="block text-white mb-2">Description</label>
+                <label className="block text-white mb-2 text-sm sm:text-base">Description</label>
                 <textarea
                   name="description"
                   rows={3}
-                  className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                  className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                 />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white mb-2">Date</label>
+                  <label className="block text-white mb-2 text-sm sm:text-base">Date</label>
                   <input
                     name="date"
                     type="datetime-local"
                     required
-                    className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                    className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-white mb-2">Location</label>
+                  <label className="block text-white mb-2 text-sm sm:text-base">Location</label>
                   <input
                     name="location"
                     type="text"
-                    className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                    className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-white mb-2">Event Link (Optional)</label>
+                <label className="block text-white mb-2 text-sm sm:text-base">Event Link (Optional)</label>
                 <input
                   name="link"
                   type="url"
                   placeholder="https://example.com/event-registration"
-                  className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                  className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                 />
               </div>
               <div>
-                <label className="block text-white mb-2">Event Image</label>
+                <label className="block text-white mb-2 text-sm sm:text-base">Event Image</label>
                 <input
                   name="image"
                   type="file"
                   accept="image/*"
-                  className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                  className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-[#843aed] file:text-white file:cursor-pointer"
                 />
               </div>
               <button
                 type="submit"
-                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-6 py-3 rounded-lg hover:scale-105 transition-transform"
+                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:scale-105 transition-transform text-sm sm:text-base w-full sm:w-auto"
               >
                 Create Event
               </button>
@@ -156,28 +156,28 @@ export default function ManageEvents() {
           </div>
         )}
 
-        <div className="bg-[#181828] rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">All Events</h2>
+        <div className="bg-[#181828] rounded-xl p-4 sm:p-6">
+          <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">All Events</h2>
           {events.length === 0 ? (
-            <p className="text-gray-400">No events found.</p>
+            <p className="text-gray-400 text-sm sm:text-base">No events found.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {events.map((event) => (
-                <div key={event.id} className="bg-[#23234a] rounded-lg p-4">
+                <div key={event.id} className="bg-[#23234a] rounded-lg p-3 sm:p-4">
                   {event.imageUrl && (
                     <img
                       src={event.imageUrl}
                       alt={event.title}
-                      className="w-full h-48 object-cover rounded-lg mb-4"
+                      className="w-full h-36 sm:h-48 object-cover rounded-lg mb-3 sm:mb-4"
                     />
                   )}
-                  <h3 className="text-lg font-semibold text-white mb-2">{event.title}</h3>
-                  <p className="text-gray-400 text-sm mb-2">{event.description}</p>
-                  <p className="text-gray-300 text-sm mb-2">
+                  <h3 className="text-base sm:text-lg font-semibold text-white mb-2">{event.title}</h3>
+                  <p className="text-gray-400 text-xs sm:text-sm mb-2">{event.description}</p>
+                  <p className="text-gray-300 text-xs sm:text-sm mb-2">
                     📅 {new Date(event.date).toLocaleDateString()}
                   </p>
                   {event.location && (
-                    <p className="text-gray-300 text-sm mb-2">📍 {event.location}</p>
+                    <p className="text-gray-300 text-xs sm:text-sm mb-2">📍 {event.location}</p>
                   )}
                   {event.link && (
                     <div className="mb-3">
@@ -185,7 +185,7 @@ export default function ManageEvents() {
                         href={event.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block bg-[#843aed] hover:bg-[#7c35d9] text-white px-3 py-1 rounded text-sm transition-colors"
+                        className="inline-block bg-[#843aed] hover:bg-[#7c35d9] text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm transition-colors"
                       >
                         🔗 Event Link
                       </a>
@@ -193,7 +193,7 @@ export default function ManageEvents() {
                   )}
                   <button
                     onClick={() => handleDelete(event.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm transition-colors"
+                    className="bg-red-500 hover:bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm transition-colors w-full sm:w-auto"
                   >
                     Delete
                   </button>

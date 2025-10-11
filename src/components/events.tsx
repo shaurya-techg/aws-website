@@ -25,6 +25,11 @@ export default function Events() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [events, setEvents] = useState<EventSlide[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   // Fetch events from database
   useEffect(() => {
@@ -55,6 +60,7 @@ export default function Events() {
 
   // Function to check if event has ended
   const isEventEnded = (eventDate: Date) => {
+    if (!isClient) return false; // Prevent hydration mismatch
     return new Date() > new Date(eventDate);
   };
 

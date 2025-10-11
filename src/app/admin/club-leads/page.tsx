@@ -64,23 +64,23 @@ export default function ManageClubLeads() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#180235] to-[#030012] pt-32">
+    <div className="min-h-screen bg-gradient-to-b from-[#180235] to-[#030012] pt-20 sm:pt-24 lg:pt-32 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="bg-[#181828] rounded-xl p-6 mb-6">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
+        <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
               Manage Club Leaders
             </h1>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 py-2 rounded-lg transition-colors text-sm sm:text-base"
               >
                 {showForm ? "Cancel" : "Add Club Leader"}
               </button>
               <button
                 onClick={() => router.push("/admin/dashboard")}
-                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors text-sm sm:text-base"
               >
                 Back to Dashboard
               </button>
@@ -89,25 +89,25 @@ export default function ManageClubLeads() {
         </div>
 
         {showForm && (
-          <div className="bg-[#181828] rounded-xl p-6 mb-6">
-            <h2 className="text-xl font-semibold text-white mb-4">Add New Club Leader</h2>
+          <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">Add New Club Leader</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white mb-2">Full Name</label>
+                  <label className="block text-white mb-2 text-sm sm:text-base">Full Name</label>
                   <input
                     name="name"
                     type="text"
                     required
-                    className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                    className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                   />
                 </div>
                 <div>
-                  <label className="block text-white mb-2">Role</label>
+                  <label className="block text-white mb-2 text-sm sm:text-base">Role</label>
                   <select
                     name="role"
                     required
-                    className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
+                    className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                   >
                     <option value="">Select Role</option>
                     <option value="Lead">Lead</option>

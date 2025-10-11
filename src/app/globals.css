@@ -91,14 +91,61 @@ h6 {
   color: #fcd8ff;
   text-align: center;
   padding: 2rem 1.5rem;
-  background: linear-gradient(to bottom right, #8444e8, #6747f2);
-  border-radius: 0.5rem;
+  background: rgba(132, 68, 232, 0.25);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 .secondary {
   color: #fcd8ff;
   text-align: center;
   padding: 2rem 1.5rem;
-  background: linear-gradient(to bottom right, #8444e8, #6747f2);
-  border-radius: 0.5rem;
+  background: rgba(103, 71, 242, 0.25);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Hover effects for glass morphism */
+.primary:hover,
+.secondary:hover {
+  background: rgba(132, 68, 232, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px);
+}
+
+/* Gradient Animation for Teams Page */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+  background-size: 300% 300%;
+}
+
+/* Custom grid positioning utilities */
+.hexagonal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+}
+
+@media (min-width: 768px) {
+  .hexagonal-grid {
+    gap: 3rem;
+  }
 }

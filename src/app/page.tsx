@@ -1,5 +1,4 @@
 'use client';
-import Navbar from "@/components/navbar";
 import description from "../../public/Description.svg";
 import punchline from "../../public/Punchline.svg";
 import { Inter } from "next/font/google";
@@ -11,7 +10,6 @@ import Events from "@/components/events";
 import ClubLeadership from "@/components/ClubLeadership";
 import ChatBot from "@/components/ChatBot";
 import BePartSection from "@/components/BePartSection";
-import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import groupPhoto from "../../public/groupPhoto.jpg";
 import Mentors from "@/components/Mentors";
@@ -151,8 +149,6 @@ export default function Home() {
         <BePartSection />
       </motion.div>
       
-      {/* Footer */}
-      <Footer />
       </div>
       
       {/* Floating ChatBot */}
