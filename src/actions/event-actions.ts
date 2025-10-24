@@ -10,12 +10,19 @@ export async function createEvent(formData: FormData) {
     const date = formData.get("date") as string;
     const location = formData.get("location") as string;
     const link = formData.get("link") as string;
+    const tag = formData.get("tag") as string;
     const image = formData.get("image") as File;
 
     let imageUrl = "";
 
     // Upload image to Cloudinary if provided
     if (image && image.size > 0) {
+      // Check file size limit (5MB = 5 * 1024 * 1024 bytes)
+      const maxSizeInBytes = 5 * 1024 * 1024;
+      if (image.size > maxSizeInBytes) {
+        return { error: "Image size must be less than 5MB" };
+      }
+
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
@@ -24,6 +31,9 @@ export async function createEvent(formData: FormData) {
           {
             folder: "events",
             resource_type: "image",
+            max_bytes: maxSizeInBytes, // Set Cloudinary limit to 5MB
+            quality: "auto",
+            fetch_format: "auto"
           },
           (error, result) => {
             if (error) reject(error);
@@ -43,6 +53,7 @@ export async function createEvent(formData: FormData) {
         date: new Date(date),
         location,
         link,
+        tag,
         imageUrl,
       },
     });

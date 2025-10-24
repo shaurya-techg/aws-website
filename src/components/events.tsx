@@ -5,6 +5,24 @@ import React, { useState, useEffect } from 'react';
 import { Inter } from "next/font/google";
 import { getLatestEvents } from '@/actions/event-actions';
 
+// Custom CSS for scrollbar
+const customScrollbarStyles = `
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(3, 0, 18, 0.3);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(156, 108, 254, 0.5);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 108, 254, 0.8);
+  }
+`;
+
 const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
@@ -19,6 +37,7 @@ interface EventSlide {
   location: string | null;
   link: string | null;
   imageUrl: string | null;
+  tag: string | null;
 }
 
 export default function Events() {
@@ -36,7 +55,12 @@ export default function Events() {
     const fetchEvents = async () => {
       try {
         const { events } = await getLatestEvents(4);
-        setEvents(events);
+        // Map the database result to ensure all fields are present
+        const eventsWithTag = events.map(event => ({
+          ...event,
+          tag: (event as any).tag || null
+        }));
+        setEvents(eventsWithTag);
       } catch (error) {
         console.error('Error fetching events:', error);
       } finally {
@@ -104,138 +128,183 @@ export default function Events() {
   }
 
   return (
-    <div className="py-8 sm:py-12 md:py-14 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-10">
-      <div className="mb-8 sm:mb-12 md:mb-14 lg:mb-16">
-        <h1 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent ${inter.className}`}>
-            Events
-        </h1>
-      </div>
-
-      <div className="relative max-w-5xl mx-auto">
-        {/* Main Slideshow Container */}
-        <div className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-900/80 to-black/90 backdrop-blur-sm border-2 border-white/30">
-          
-          {/* Slides */}
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {events.map((event, index) => (
-              <div key={event.id} className="w-full flex-shrink-0">
-                <div className="flex flex-col lg:flex-row items-center min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
-                  {/* Image Section */}
-                  <div className="w-full lg:w-1/2 h-48 sm:h-60 md:h-72 lg:h-full bg-gradient-to-br from-[#8504DE] to-[#4677FF] flex items-center justify-center overflow-hidden">
-                    {event.imageUrl ? (
-                      <img 
-                        src={event.imageUrl} 
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold opacity-50 text-center px-2">
-                        Event
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Content Section */}
-                  <div className="w-full lg:w-1/2 p-4 sm:p-6 md:p-8 lg:p-12">
-                    <div className="mb-3 sm:mb-4">
-                      <span className={`inline-block px-2 sm:px-3 py-1 backdrop-blur-sm border text-xs sm:text-sm font-semibold rounded-full ${
-                        isEventEnded(event.date) 
-                          ? 'bg-red-500/20 border-red-500/30 text-red-300' 
-                          : 'bg-green-500/20 border-green-500/30 text-green-300'
-                      }`}>
-                        {isEventEnded(event.date) ? 'Event Ended' : 'Upcoming Event'}
-                      </span>
-                    </div>
-                    
-                    <h2 className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#FCD8FF] mb-3 sm:mb-4 leading-tight ${inter.className}`}>
-                      {event.title}
-                    </h2>
-                    
-                    <p className={`text-white text-sm sm:text-base md:text-lg leading-relaxed mb-4 sm:mb-6 ${inter.className}`}>
-                      {event.description || 'No description available'}
-                    </p>
-                    
-                    <div className="space-y-1 sm:space-y-2 mb-4 sm:mb-6">
-                      <div className="flex items-center text-white text-sm sm:text-base">
-                        <span className="font-semibold mr-2">📅 Date:</span>
-                        <span>{formatDate(event.date)}</span>
-                      </div>
-                      {event.location && (
-                        <div className="flex items-center text-white text-sm sm:text-base">
-                          <span className="font-semibold mr-2">📍 Location:</span>
-                          <span>{event.location}</span>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="relative inline-block">
-                      {isEventEnded(event.date) ? (
-                        <button 
-                          className="relative px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full text-sm sm:text-base border-2 border-red-500/30 text-red-300 bg-red-500/10 cursor-not-allowed"
-                          disabled
-                        >
-                          Event Ended
-                        </button>
-                      ) : (
-                        <button 
-                          className="relative px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-full text-sm sm:text-base hover:scale-105 transition-all duration-300 border-2 border-transparent text-white bg-gradient-to-br from-gray-900/80 to-black/90 backdrop-blur-sm"
-                          style={{
-                            background: 'linear-gradient(to bottom right, rgba(17, 24, 39, 0.8), rgba(0, 0, 0, 0.9)) padding-box, linear-gradient(45deg, #843aed, #4349ff) border-box'
-                          }}
-                          onClick={() => event.link && window.open(event.link, '_blank')}
-                        >
-                          <span className="bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
-                            Learn More
-                          </span>
-                        </button>
-                      )}
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      
+      {/* Single Event Display - Increased Size */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/90 to-purple-900/30 backdrop-blur-lg border border-purple-400/20 shadow-2xl">
+        
+        {/* Event Content */}
+        <div className="p-6 sm:p-8 lg:p-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
+            
+            {/* Event Image */}
+            <div className="order-2 lg:order-1 flex justify-center">
+              <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-none h-80 sm:h-96 lg:h-[480px] rounded-2xl overflow-hidden bg-gradient-to-br from-purple-600/20 to-blue-600/20 shadow-xl">
+                {events[currentSlide]?.imageUrl ? (
+                  <img 
+                    src={events[currentSlide].imageUrl} 
+                    alt={events[currentSlide].title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <div className="text-center">
+                      <div className="text-9xl mb-6">🎉</div>
+                      <span className="text-2xl font-medium">Event Image</span>
+                      <p className="text-lg text-gray-500 mt-3">Coming Soon</p>
                     </div>
                   </div>
+                )}
+                
+                {/* Status Badge */}
+                <div className="absolute top-6 right-6">
+                  {isEventEnded(events[currentSlide]?.date) ? (
+                    <div className="px-5 py-3 bg-gray-500/90 backdrop-blur-md rounded-full text-white text-base font-bold border border-gray-400/50 shadow-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+                        <span>ENDED</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="px-5 py-3 bg-green-500/90 backdrop-blur-md rounded-full text-white text-base font-bold border border-green-400/50 shadow-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-green-300 rounded-full animate-pulse"></div>
+                        <span>UPCOMING</span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            ))}
+            </div>
+            
+            {/* Event Details */}
+            <div className="order-1 lg:order-2 flex flex-col justify-between h-full text-center lg:text-left">
+              
+              {/* Top Content */}
+              <div className="space-y-2 sm:space-y-4">
+                {/* Title */}
+                <div className="flex flex-col items-center lg:items-start">
+                  {/* Tag */}
+                  {events[currentSlide]?.tag && (
+                    <div className="mb-2">
+                      <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white text-lg font-medium rounded-full">
+                        {events[currentSlide].tag}
+                      </span>
+                    </div>
+                  )}
+                  
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-2 sm:mb-4">
+                    {events[currentSlide]?.title}
+                  </h2>
+                  <div className="h-1.5 w-20 sm:w-24 lg:w-28 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
+                </div>
+                
+                {/* Event Info */}
+                <div className="space-y-4 sm:space-y-6 lg:space-x-6 flex flex-col lg:flex-row items-center lg:items-start">
+                  <div className="flex items-center text-purple-300">
+                    <svg className="w-6 sm:w-7 lg:w-8 h-6 sm:h-7 lg:h-8 mr-3 sm:mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-base sm:text-lg lg:text-xl font-medium">
+                      {events[currentSlide] ? formatDate(events[currentSlide].date) : ''}
+                    </span>
+                  </div>
+                  
+                  {events[currentSlide]?.location && (
+                    <div className="flex items-center text-blue-300">
+                      <svg className="w-6 sm:w-7 lg:w-8 h-6 sm:h-7 lg:h-8 mr-3 sm:mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      </svg>
+                      <span className="text-base sm:text-lg lg:text-xl font-medium">
+                        {events[currentSlide].location}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Description */}
+                {events[currentSlide]?.description && (
+                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8 border border-slate-600/30 max-w-2xl mx-auto lg:mx-0">
+                    <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
+                      {events[currentSlide].description}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Bottom Action Button - Always at bottom */}
+              <div className="mt-6 flex items-center justify-center lg:justify-start">
+                {events[currentSlide]?.link ? (
+                  <a 
+                    href={events[currentSlide].link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105 group text-base sm:text-lg"
+                  >
+                    <span>View Event Details</span>
+                    <svg className="w-5 sm:w-6 h-5 sm:h-6 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                ) : (
+                  <div className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:from-purple-700 hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105 group text-base sm:text-lg"
+                  >
+                    <span>View Event Details</span>
+                    <svg className="w-5 sm:w-6 h-5 sm:h-6 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+              
+            </div>
           </div>
         </div>
-
-        {/* Navigation Arrows - Responsive positioning */}
-        <button 
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-8 sm:-translate-x-12 lg:-translate-x-16 hover:bg-white/30 text-white p-2 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl backdrop-blur-sm transition-all duration-300 z-10"
-        >
-          <img src={right.src} alt="Previous" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-        </button>
         
-        <button 
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-8 sm:translate-x-12 lg:translate-x-16 hover:bg-white/30 text-white p-2 sm:p-3 lg:p-4 rounded-xl sm:rounded-2xl backdrop-blur-sm transition-all duration-300 z-10"
-        >
-          <img src={left.src} alt="Next" className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
-        </button>
-
-        {/* Slide Indicators */}
-        <div className="flex justify-center space-x-2 sm:space-x-3 mt-6 sm:mt-8 lg:mt-10">
+        {/* Navigation Controls */}
+        <div className="absolute inset-y-0 left-6 flex items-center">
+          <button
+            onClick={prevSlide}
+            disabled={events.length <= 1}
+            className="p-4 bg-black/50 backdrop-blur-sm text-white rounded-full hover:bg-black/70 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
+          >
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+        
+        <div className="absolute inset-y-0 right-6 flex items-center">
+          <button
+            onClick={nextSlide}
+            disabled={events.length <= 1}
+            className="p-4 bg-black/50 backdrop-blur-sm text-white rounded-full hover:bg-black/70 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg"
+          >
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+        
+      </div>
+      
+      {/* Dot Indicators - Outside the box */}
+      <div className="flex justify-center mt-6">
+        <div className="flex space-x-3">
           {events.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`relative ${
+              className={`transition-all duration-300 ${
                 index === currentSlide 
-                  ? 'p-0.5 sm:p-1 rounded-full bg-gradient-to-r from-[#090EDB] to-[#DA24BB]' 
-                  : ''
+                  ? 'w-10 h-4 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full' 
+                  : 'w-4 h-4 bg-gray-500 hover:bg-gray-400 rounded-full'
               }`}
-            >
-              <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
-                index === currentSlide 
-                  ? 'bg-white' 
-                  : 'bg-white/60 hover:bg-white/80'
-              }`} />
-            </button>
+            />
           ))}
         </div>
       </div>
+      
     </div>
   );
 }

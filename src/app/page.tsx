@@ -127,7 +127,14 @@ export default function Home() {
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
         viewport={{ once: true, amount: 0.3 }}
       >
-        <Events />
+        <div className="py-8 sm:py-12 md:py-14 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-10">
+          <div className="mb-8 sm:mb-12 md:mb-14 lg:mb-16">
+            <h1 className={`text-3xl py-2 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-center bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent ${inter.className}`}>
+                Latest Events
+            </h1>
+          </div>
+          <Events />
+        </div>
       </motion.div>
       <motion.div 
         initial={{ opacity: 0, y: 50 }}

@@ -24,6 +24,7 @@ export default function Footer() {
                             <li><a href="/" className="hover:text-[#843aed] transition-colors duration-300">Home</a></li>
                             <li><a href="/events" className="hover:text-[#843aed] transition-colors duration-300">Events</a></li>
                             <li><a href="/teams" className="hover:text-[#843aed] transition-colors duration-300">Teams</a></li>
+                            <li><a href="/alumni" className="hover:text-[#843aed] transition-colors duration-300">Alumni</a></li>
                         </ul>
                     </div>
 

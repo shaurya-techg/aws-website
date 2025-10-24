@@ -138,6 +138,15 @@ export default function ManageEvents() {
                 />
               </div>
               <div>
+                <label className="block text-white mb-2 text-sm sm:text-base">Event Tag (Optional)</label>
+                <input
+                  name="tag"
+                  type="text"
+                  placeholder="e.g., Workshop, Seminar, Conference"
+                  className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
+                />
+              </div>
+              <div>
                 <label className="block text-white mb-2 text-sm sm:text-base">Event Image</label>
                 <input
                   name="image"
@@ -172,6 +181,13 @@ export default function ManageEvents() {
                     />
                   )}
                   <h3 className="text-base sm:text-lg font-semibold text-white mb-2">{event.title}</h3>
+                  {event.tag && (
+                    <div className="mb-2">
+                      <span className="inline-block px-2 py-1 text-xs font-medium bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white rounded-full">
+                        {event.tag}
+                      </span>
+                    </div>
+                  )}
                   <p className="text-gray-400 text-xs sm:text-sm mb-2">{event.description}</p>
                   <p className="text-gray-300 text-xs sm:text-sm mb-2">
                     📅 {new Date(event.date).toLocaleDateString()}

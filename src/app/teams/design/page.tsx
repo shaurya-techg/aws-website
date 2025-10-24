@@ -105,7 +105,7 @@ export default function SoftwareDevPage() {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <div className="text-white/60 text-xl">
-            No team members found for the Software Development department.
+            No team members found for this department.
           </div>
           <p className="text-white/40 mt-4">
             Team members will appear here once they are added to the system.

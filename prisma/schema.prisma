@@ -18,6 +18,7 @@ model Event {
   date        DateTime
   location    String?
   link        String?
+  tag         String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -49,4 +50,17 @@ model ClubLead {
   updatedAt   DateTime @updatedAt
 
   @@map("club_leads")
+}
+
+model Alumni {
+  id          String   @id @default(cuid())
+  name        String
+  role        String
+  session     String
+  imageUrl    String?
+  linkedin    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("alumnus")
 }

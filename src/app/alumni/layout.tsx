@@ -104,7 +104,7 @@ export default function TeamsLayout({
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 pt-4 sm:pt-4">
+      <div className="relative z-10">
         {children}
       </div>
     </div>
