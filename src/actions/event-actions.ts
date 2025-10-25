@@ -8,6 +8,7 @@ export async function createEvent(formData: FormData) {
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const date = formData.get("date") as string;
+    const time = formData.get("time") as string;
     const location = formData.get("location") as string;
     const link = formData.get("link") as string;
     const tag = formData.get("tag") as string;
@@ -51,6 +52,7 @@ export async function createEvent(formData: FormData) {
         title,
         description,
         date: new Date(date),
+        time: time || null, // Store time as string or null if empty
         location,
         link,
         tag,
@@ -86,6 +88,44 @@ export async function getLatestEvents(limit: number = 4) {
     return { events };
   } catch (error) {
     console.error("Error fetching latest events:", error);
+    return { events: [] };
+  }
+}
+
+export async function getUpcomingEvents(limit: number = 10) {
+  try {
+    const currentDate = new Date();
+    const events = await prisma.event.findMany({
+      where: {
+        date: {
+          gte: currentDate,
+        },
+      },
+      orderBy: { date: "asc" },
+      take: limit,
+    });
+    return { events };
+  } catch (error) {
+    console.error("Error fetching upcoming events:", error);
+    return { events: [] };
+  }
+}
+
+export async function getPastEvents(limit: number = 50) {
+  try {
+    const currentDate = new Date();
+    const events = await prisma.event.findMany({
+      where: {
+        date: {
+          lt: currentDate,
+        },
+      },
+      orderBy: { date: "desc" },
+      take: limit,
+    });
+    return { events };
+  } catch (error) {
+    console.error("Error fetching past events:", error);
     return { events: [] };
   }
 }

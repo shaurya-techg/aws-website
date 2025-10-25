@@ -34,6 +34,7 @@ interface EventSlide {
   title: string;
   description: string | null;
   date: Date;
+  time: string | null;
   location: string | null;
   link: string | null;
   imageUrl: string | null;
@@ -58,7 +59,8 @@ export default function Events() {
         // Map the database result to ensure all fields are present
         const eventsWithTag = events.map(event => ({
           ...event,
-          tag: (event as any).tag || null
+          tag: (event as any).tag || null,
+          time: (event as any).time || null
         }));
         setEvents(eventsWithTag);
       } catch (error) {
@@ -193,7 +195,7 @@ export default function Events() {
                     </div>
                   )}
                   
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight mb-2 sm:mb-4">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white leading-tight mb-2 sm:mb-4">
                     {events[currentSlide]?.title}
                   </h2>
                   <div className="h-1.5 w-20 sm:w-24 lg:w-28 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
@@ -207,6 +209,9 @@ export default function Events() {
                     </svg>
                     <span className="text-base sm:text-lg lg:text-xl font-medium">
                       {events[currentSlide] ? formatDate(events[currentSlide].date) : ''}
+                      {events[currentSlide]?.time && (
+                        <span className="text-blue-300 ml-2">• {events[currentSlide].time}</span>
+                      )}
                     </span>
                   </div>
                   
@@ -224,7 +229,7 @@ export default function Events() {
                 
                 {/* Description */}
                 {events[currentSlide]?.description && (
-                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 sm:p-6 lg:p-8 border border-slate-600/30 max-w-2xl mx-auto lg:mx-0">
+                  <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-2 sm:p-4 border border-slate-600/30 max-w-2xl mx-auto lg:mx-0">
                     <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                       {events[currentSlide].description}
                     </p>

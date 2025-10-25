@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import EventCard from "./EventCard";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { getLatestEvents } from "@/actions/event-actions";
+import { getPastEvents } from "@/actions/event-actions";
+import { motion } from "framer-motion";
 
 interface Event {
   id: string;
@@ -11,6 +12,7 @@ interface Event {
   description: string | null;
   imageUrl: string | null;
   date: Date;
+  time: string | null;
   location: string | null;
   link: string | null;
   tag: string | null;
@@ -22,22 +24,17 @@ const EventsSection = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Helper function to check if event has passed
-  const isEventPassed = (eventDate: Date) => {
-    const currentDate = new Date();
-    return new Date(eventDate) < currentDate;
-  };
-
   // Fetch events from database
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const result = await getLatestEvents(6); // Get latest 6 events
+        const result = await getPastEvents(50); // Get latest 50 past events
         if (result.events) {
           // Map the database result to ensure all fields are present
-          const eventsWithTag = result.events.map(event => ({
+          const eventsWithTag = result.events.map((event: any) => ({
             ...event,
-            tag: (event as any).tag || null
+            tag: event.tag || null,
+            time: event.time || null
           }));
           setEvents(eventsWithTag);
         }
@@ -102,7 +99,7 @@ const EventsSection = () => {
       title: event.title,
       description: event.description || "No description available",
       date: formattedDate,
-      time: "TBD", // Since we don't have time in database, you may want to add this field
+      time: event.time || "TBD", // Use the actual time field from database
       location: event.location || "Location TBD",
       image: event.imageUrl || "/images/default-event.jpg",
       link: event.link || "#",
@@ -111,8 +108,17 @@ const EventsSection = () => {
   };
 
   return (
-    <div ref={sectionRef} className="relative pb-16 sm:pb-20 lg:pb-28 bg-transparent">
-
+    <div ref={sectionRef} className="relative py-16 sm:pb-20 lg:pb-28 bg-transparent">
+      <motion.h2
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="bg-gradient-to-r from-[#FCD8FF] to-[#843aed] bg-clip-text text-transparent">
+            Past Events
+          </span>
+        </motion.h2>
       <div className="relative mt-16 flex flex-col items-center">
         {/* Vertical timeline line - background */}
         <div className="absolute left-8 sm:left-12 lg:left-1/2 transform lg:-translate-x-1/2 w-[3px] bg-gradient-to-b from-transparent via-[#FCD8FF]/10 to-transparent top-0 bottom-0 rounded-full"></div>
@@ -140,7 +146,6 @@ const EventsSection = () => {
           ) : (
             events.map((event, index) => {
             const isLeft = index % 2 === 0;
-            const isPast = isEventPassed(event.date);
 
             return (
               <div
@@ -155,8 +160,8 @@ const EventsSection = () => {
                       {
                         opacity: 1,
                         y: 0,
-                        duration: 0.8,
-                        delay: index * 0.3,
+                        duration: 0.5,
+                        delay: 0.3,
                         ease: "power2.out",
                         scrollTrigger: {
                           trigger: el,
@@ -172,28 +177,18 @@ const EventsSection = () => {
                   isLeft
                     ? "lg:justify-center lg:pr-[50%]"
                     : "lg:justify-center lg:pl-[50%]"
-                } ${isPast ? 'opacity-60' : ''}`}
+                }`}
               >
                 {/* Event content */}
                 <div
-                  className={`w-full ml-16 sm:ml-20 lg:ml-0 lg:w-[65%] z-10 ${isPast ? 'grayscale-[30%]' : ''}`}
+                  className={`w-full ml-16 sm:ml-20 lg:ml-0 lg:w-[65%] z-10`}
                 >
                   <EventCard {...formatEventForCard(event)} />
                 </div>
 
-                {/* Timeline dot - Different colors for past vs upcoming */}
-                <div className={`absolute left-[32px] sm:left-[48px] lg:left-1/2 transform -translate-x-1/2 lg:-translate-x-1/2 rounded-full w-5 h-5 border-4 border-[#1E1E1E] z-20 ${
-                  isPast 
-                    ? 'bg-gray-400 shadow-[0_0_20px_rgba(156,163,175,0.5)]' 
-                    : 'bg-[#FCD8FF] shadow-[0_0_20px_#FCD8FF]'
-                }`}></div>
-                
-                {/* Event status label */}
-                {isPast && (
-                  <div className="absolute left-[32px] sm:left-[48px] lg:left-1/2 transform -translate-x-1/2 lg:-translate-x-1/2 top-[-15px] px-2 py-1 bg-gray-500/20 border border-gray-400/30 rounded-full z-30">
-                    <span className="text-gray-400 text-xs font-medium">ENDED</span>
-                  </div>
-                )}
+                {/* Timeline dot for past events */}
+                <div className={`absolute left-[32px] sm:left-[48px] lg:left-1/2 transform -translate-x-1/2 lg:-translate-x-1/2 rounded-full w-5 h-5 border-4 border-[#1E1E1E] z-20 bg-gray-400 shadow-[0_0_20px_rgba(156,163,175,0.5)]`}></div>
+
               </div>
             );
             })

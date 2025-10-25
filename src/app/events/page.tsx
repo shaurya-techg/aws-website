@@ -1,7 +1,214 @@
 "use client";
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import EventsSection from '@/components/EventsSection'
 import { motion, useInView } from 'framer-motion'
+import { getUpcomingEvents } from '@/actions/event-actions'
+import EVE from "../../../public/EVE.png";
+interface Event {
+  id: string;
+  title: string;
+  description: string | null;
+  imageUrl: string | null;
+  date: Date;
+  time: string | null;
+  location: string | null;
+  link: string | null;
+  tag: string | null;
+}
+
+const UpcomingEventsSlideshow = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUpcomingEvents = async () => {
+      try {
+        const result = await getUpcomingEvents(5);
+        if (result.events) {
+          setEvents(result.events);
+        }
+      } catch (error) {
+        console.error("Error fetching upcoming events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUpcomingEvents();
+  }, []);
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    if (events.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % events.length);
+      }, 4000);
+      return () => clearInterval(interval);
+    }
+  }, [events.length]);
+
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl border border-purple-500/20 p-6 sm:p-8">
+            <div className="animate-pulse">
+              <div className="h-6 sm:h-8 bg-purple-500/20 rounded mb-4 w-48 sm:w-64 mx-auto"></div>
+              <div className="h-48 sm:h-64 md:h-80 bg-purple-500/10 rounded-xl"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pb-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="bg-gradient-to-r from-[#FCD8FF] to-[#843aed] bg-clip-text text-transparent">
+            Upcoming Events
+          </span>
+        </motion.h2>
+
+        <motion.div
+          className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl border border-purple-500/20 overflow-hidden"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {events.length === 0 ? (
+            // No events state with same structure
+            <div className="p-6 sm:p-8 md:p-12 text-center">
+              <div className="mb-6 sm:mb-8">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center">
+                  <img src={EVE.src} alt="No Upcoming Events" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
+                </div>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90 mb-2 sm:mb-4">No Upcoming Events</h3>
+                <p className="text-white/60 text-base sm:text-lg md:text-xl">
+                  We're brewing something exciting—upcoming events will be announced soon!
+                </p>
+              </div>
+              <div className="flex justify-center space-x-2">
+                {[1, 2, 3].map((_, index) => (
+                  <div key={index} className="w-2 h-2 bg-purple-500/30 rounded-full"></div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            // Events slideshow
+            <div className="relative">
+              <div className="overflow-hidden">
+                <motion.div
+                  className="flex"
+                  animate={{ x: `-${currentSlide * 100}%` }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  {events.map((event, index) => (
+                    <div key={event.id} className="w-full flex-shrink-0">
+                      <div className="p-6 sm:p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
+                        {/* Event Image */}
+                        <div className="order-2 md:order-1">
+                          {event.imageUrl ? (
+                            <img
+                              src={event.imageUrl}
+                              alt={event.title}
+                              className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-xl"
+                            />
+                          ) : (
+                            <div className="w-full h-48 sm:h-64 md:h-80 lg:h-96 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center">
+                              <span className="text-4xl sm:text-5xl md:text-6xl">🎉</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Event Details */}
+                        <div className="order-1 md:order-2 space-y-3 sm:space-y-4">
+                          {event.tag && (
+                            <span className="inline-block px-2 py-1 sm:px-3 sm:py-1 bg-gradient-to-r from-[#843aed]/80 to-[#4349ff]/80 text-white text-xs sm:text-sm rounded-full">
+                              {event.tag}
+                            </span>
+                          )}
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                            {event.title}
+                          </h3>
+                          {event.description && (
+                            <p className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed">
+                              {event.description}
+                            </p>
+                          )}
+                          <div className="space-y-1 sm:space-y-2 text-white/70 text-sm sm:text-base">
+                            <div className="flex items-center space-x-2">
+                              <span>📅</span>
+                              <span>{formatDate(event.date)}</span>
+                              {event.time && (
+                                <>
+                                  <span>•</span>
+                                  <span>🕒 {event.time}</span>
+                                </>
+                              )}
+                            </div>
+                            {event.location && (
+                              <div className="flex items-center space-x-2">
+                                <span>📍</span>
+                                <span>{event.location}</span>
+                              </div>
+                            )}
+                          </div>
+                          {event.link && (
+                            <a
+                              href={event.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white text-sm sm:text-base rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200"
+                            >
+                              Learn More
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Slide indicators */}
+              {events.length > 1 && (
+                <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                  {events.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentSlide(index)}
+                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
+                        index === currentSlide
+                          ? 'bg-purple-500 scale-110'
+                          : 'bg-purple-500/30 hover:bg-purple-500/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
 
 const page = () => {
   const ref = useRef(null);
@@ -32,7 +239,7 @@ const page = () => {
 
       <div ref={ref} className="relative z-10">
         <motion.div 
-              className="text-center mb-16 sm:mb-24 px-4 sm:px-6 lg:px-8"
+              className="text-center mb-8 sm:mb-12 px-4 sm:px-6 lg:px-8"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1 }}
@@ -74,6 +281,10 @@ const page = () => {
               </motion.div>
             </motion.div>
       </div>
+        
+        {/* Upcoming Events Slideshow */}
+        <UpcomingEventsSlideshow />
+        
         <EventsSection />
     </div>
   )

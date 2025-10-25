@@ -109,14 +109,23 @@ export default function ManageEvents() {
                   className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-white mb-2 text-sm sm:text-base">Date</label>
                   <input
                     name="date"
-                    type="datetime-local"
+                    type="date"
                     required
                     className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white mb-2 text-sm sm:text-base">Time</label>
+                  <input
+                    name="time"
+                    type="time"
+                    className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
+                    placeholder="e.g., 10:00 AM"
                   />
                 </div>
                 <div>
@@ -188,9 +197,9 @@ export default function ManageEvents() {
                       </span>
                     </div>
                   )}
-                  <p className="text-gray-400 text-xs sm:text-sm mb-2">{event.description}</p>
                   <p className="text-gray-300 text-xs sm:text-sm mb-2">
                     📅 {new Date(event.date).toLocaleDateString()}
+                    {event.time && <span className="ml-2">⏰ {event.time}</span>}
                   </p>
                   {event.location && (
                     <p className="text-gray-300 text-xs sm:text-sm mb-2">📍 {event.location}</p>
