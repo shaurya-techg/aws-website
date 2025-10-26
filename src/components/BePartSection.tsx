@@ -23,7 +23,7 @@ export default function BePartSection() {
                 />
                 
                 {/* Rounded Join Button */}
-                <div className="relative inline-block">
+                <a href="https://chat.whatsapp.com/ETars8R7yGY7x5FwB22Ppg" target="_blank" className="relative inline-block">
                     <button 
                         className="relative px-6 sm:px-8 lg:px-10 py-3 sm:py-4 font-bold rounded-full text-base sm:text-lg lg:text-xl hover:scale-105 transition-transform duration-300 border-2 border-transparent text-white"
                         style={{
@@ -34,7 +34,7 @@ export default function BePartSection() {
                             JOIN CLUB
                         </span>
                     </button>
-                </div>
+                </a>
             </div>
         </div>
     );

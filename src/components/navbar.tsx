@@ -73,11 +73,11 @@ export default function Navbar() {
             </div>
             
             {/* Desktop Join Button - Hidden on md screens and below */}
-            <button className="hidden lg:block px-3 lg:px-4 py-2 lg:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full text-sm xl:text-base" style={{
+            <a href="https://chat.whatsapp.com/ETars8R7yGY7x5FwB22Ppg" target="_blank" rel="noopener noreferrer" className="hidden lg:block px-3 lg:px-4 py-2 lg:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full text-sm xl:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-300" style={{
                 borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
             }}>
                 JOIN CLUB
-            </button>
+            </a>
         </div>
 
         {/* Mobile/Tablet Dropdown Menu */}
@@ -92,11 +92,11 @@ export default function Navbar() {
                 
                 {/* Mobile Join Button */}
                 <div className="pt-3 sm:pt-4">
-                    <button className="px-4 py-2 sm:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full w-full text-sm sm:text-base" style={{
+                    <a href="https://chat.whatsapp.com/ETars8R7yGY7x5FwB22Ppg" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 sm:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full w-full text-sm sm:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-300" style={{
                         borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
                     }}>
                         JOIN CLUB
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
