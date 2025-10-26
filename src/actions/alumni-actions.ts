@@ -70,7 +70,7 @@ export async function createAlumni(formData: FormData) {
 export async function getAlumni() {
   try {
     const alumni = await prisma.alumni.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: 'asc' },
     })
 
     return { success: true, alumni }

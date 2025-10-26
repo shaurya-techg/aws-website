@@ -106,7 +106,7 @@ export default function AlumniPage() {
               {alumni.map((alumniMember) => (
                 <div
                   key={alumniMember.id}
-                  className="group backdrop-blur-sm rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border-2 border-white/40 hover:border-[#843aed]/50 transition-all duration-300 hover:transform hover:scale-105"
+                  className="group backdrop-blur-sm rounded-xl lg:rounded-2xl pb-3 sm:pb-4 lg:pb-6 border-2 border-white/40 hover:border-[#843aed]/50 transition-all duration-300 hover:transform hover:scale-105"
                 >
                   {/* Profile Image */}
                   <div className="relative mb-2 sm:mb-3 lg:mb-4">
@@ -114,7 +114,7 @@ export default function AlumniPage() {
                       <img
                         src={alumniMember.imageUrl}
                         alt={alumniMember.name}
-                        className="w-full h-36 sm:h-40 lg:h-48 object-cover rounded-lg lg:rounded-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
+                        className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-t-lg lg:rounded-t-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
                       />
                     ) : (
                       <div className="w-full h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-[#843aed]/20 to-[#4349ff]/20 rounded-lg lg:rounded-xl flex items-center justify-center border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300">
@@ -171,7 +171,7 @@ export default function AlumniPage() {
                 {alumni.map((alumniMember) => (
                   <div
                     key={alumniMember.id}
-                    className="group backdrop-blur-sm rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 border-2 border-white/40 hover:border-[#843aed]/50 transition-all duration-300 hover:transform hover:scale-105"
+                    className="group backdrop-blur-sm rounded-t-xl lg:rounded-t-2xl pb-3 sm:pb-4 lg:pb-6 border-2 border-white/40 hover:border-[#843aed]/50 transition-all duration-300 hover:transform hover:scale-105"
                   >
                     {/* Profile Image */}
                     <div className="relative mb-2 sm:mb-3 lg:mb-4">
@@ -182,7 +182,7 @@ export default function AlumniPage() {
                           className="w-full h-32 sm:h-40 lg:h-48 object-cover rounded-lg lg:rounded-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
                         />
                       ) : (
-                        <div className="w-full h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-[#843aed]/20 to-[#4349ff]/20 rounded-lg lg:rounded-xl flex items-center justify-center border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300">
+                        <div className="w-full h-40 sm:h-48 lg:h-56 bg-gradient-to-br from-[#843aed]/20 to-[#4349ff]/20 rounded-lg lg:rounded-xl flex items-center justify-center border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300">
                           <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-[#843aed] to-[#4349ff] rounded-full flex items-center justify-center">
                             <span className="text-white text-lg sm:text-xl lg:text-2xl font-bold">
                               {alumniMember.name.charAt(0)}

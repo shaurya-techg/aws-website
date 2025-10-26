@@ -71,26 +71,28 @@ export default function SoftwareDevPage() {
         >
           <div className="flex flex-col xl:flex-row gap-8 max-w-7xl mx-auto">
             {/* Leads Section */}
-            <div className="flex-1 flex flex-col items-center space-y-8 xl:pt-4">
+            <div className="xl:w-1/4 flex flex-col items-center space-y-8 xl:pt-4">
               {leads.map((lead) => (
                 <MemberCard key={lead.id} member={lead} size="large" />
               ))}
             </div>
 
             {/* Co-Leads Section */}
-            <div className="flex-1 flex flex-col items-center space-y-8 xl:pt-4">
+            <div className="xl:w-1/4 flex flex-col items-center space-y-8 xl:pt-4">
               {coLeads.map((coLead) => (
                 <MemberCard key={coLead.id} member={coLead} size="medium" />
               ))}
             </div>
 
             {/* Members Section */}
-            <div className="grid grid-cols-2 md:grid-cols-3 items-center">
-              {members.map((member) => (
-                <div key={member.id} className="flex justify-center p-4">
-                  <MemberCard key={member.id} member={member} size="normal" />
-                </div>
-              ))}
+            <div className="xl:w-1/2 xl:pt-4">
+              <div className="grid grid-cols-2 lg:grid-cols-3 items-start gap-x-4 gap-y-8">
+                {members.map((member) => (
+                  <div key={member.id} className="flex justify-center">
+                    <MemberCard key={member.id} member={member} size="normal" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.section>

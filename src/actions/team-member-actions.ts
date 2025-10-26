@@ -15,6 +15,12 @@ export async function createTeamMember(formData: FormData) {
 
     // Upload image to Cloudinary if provided
     if (image && image.size > 0) {
+      // Check file size limit (5MB = 5 * 1024 * 1024 bytes)
+      const maxSizeInBytes = 5 * 1024 * 1024;
+      if (image.size > maxSizeInBytes) {
+        return { error: "Image size must be less than 5MB" };
+      }
+
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
@@ -23,6 +29,9 @@ export async function createTeamMember(formData: FormData) {
           {
             folder: "team-members",
             resource_type: "image",
+            max_bytes: maxSizeInBytes, // Set Cloudinary limit to 5MB
+            quality: "auto",
+            fetch_format: "auto"
           },
           (error, result) => {
             if (error) reject(error);
@@ -107,6 +116,12 @@ export async function updateTeamMember(id: string, formData: FormData) {
 
     // Upload new image to Cloudinary if provided
     if (image && image.size > 0) {
+      // Check file size limit (5MB = 5 * 1024 * 1024 bytes)
+      const maxSizeInBytes = 5 * 1024 * 1024;
+      if (image.size > maxSizeInBytes) {
+        return { error: "Image size must be less than 5MB" };
+      }
+
       const bytes = await image.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
@@ -115,6 +130,9 @@ export async function updateTeamMember(id: string, formData: FormData) {
           {
             folder: "team-members",
             resource_type: "image",
+            max_bytes: maxSizeInBytes, // Set Cloudinary limit to 5MB
+            quality: "auto",
+            fetch_format: "auto"
           },
           (error, result) => {
             if (error) reject(error);
