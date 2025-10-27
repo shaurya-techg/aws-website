@@ -183,8 +183,16 @@ export default function ManageTeamMembers() {
                   name="image"
                   type="file"
                   accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file && file.size > 1024 * 1024) { // 1MB limit
+                      toast.warning("Image size should be less than 1MB. Please choose a smaller image.");
+                      e.target.value = '';
+                    }
+                  }}
                   className="w-full p-2 sm:p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed] text-sm sm:text-base"
                 />
+                <p className="text-gray-400 text-xs mt-1">Maximum file size: 1MB</p>
               </div>
               <button
                 type="submit"
