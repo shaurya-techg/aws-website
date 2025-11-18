@@ -1,17 +1,30 @@
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth"
+import { prismaAdapter } from "better-auth/adapters/prisma"
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
 
 export const auth = betterAuth({
-    database: {
-        provider: "postgresql",
-        url: process.env.DATABASE_URL!,
-    },
-    emailAndPassword: {
-        enabled: true,
-        minPasswordLength: 8,
-        autoSignIn: true,
-        requireEmailVerification: false,
-    },
-    trustedOrigins: ["http://localhost:3000"],
-});
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: false,
+  },
+  session: {
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // 1 day
+  },
+  trustedOrigins: ["http://localhost:3000"],
+  advanced: {
+    generateId: false,
+  },
+})
 
-export type Session = typeof auth.$Infer.Session;
+// Simple admin check function
+export async function validateAdmin(email: string, password: string) {
+  return email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD
+}
+
+export type Session = typeof auth.$Infer.Session

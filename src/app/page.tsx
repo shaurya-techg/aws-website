@@ -1,4 +1,5 @@
 'use client';
+import Image from "next/image";
 import description from "../../public/Description.svg";
 import punchline from "../../public/Punchline.svg";
 import { Inter } from "next/font/google";
@@ -37,7 +38,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 1, delay: 0.8, type: "spring", stiffness: 100 }}
           >
-              <img src={prductivity.src} className="w-full max-w-md sm:max-w-full" alt="Productivity" />
+              <Image src={prductivity.src} width={600} height={400} className="w-full max-w-md sm:max-w-full" alt="Productivity" />
           </motion.div>
         <motion.div 
           className="w-full sm:w-3/5 flex flex-col items-center justify-center py-2 sm:py-4 md:py-6 lg:py-8 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-20 gap-3 sm:gap-4 md:gap-6 order-2 sm:order-1"
@@ -78,7 +79,7 @@ export default function Home() {
       <div className="my-8 sm:my-12 lg:my-16 bg-black w-full">
       <div className="flex flex-col md:flex-row ">
         <div className="md:w-1/2 flex justify-center items-center p-6 sm:p-8 lg:p-10">
-          <img src={groupPhoto.src} alt="About Us" className="h-auto rounded-lg shadow-lg mb-6" />
+          <Image src={groupPhoto.src} alt="About Us" width={600} height={400} className="h-auto rounded-lg shadow-lg mb-6" />
         </div>
         <div className="h-98 md:h-auto md:w-1/2 p-6 sm:p-8 lg:p-10 flex flex-col text-white justify-around">
           <div>

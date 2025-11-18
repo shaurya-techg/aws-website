@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { getClubLeadership } from '@/actions/club-lead-actions';
 
 interface LeadershipMember {
@@ -51,9 +52,11 @@ export default function ClubLeadership() {
           isLead ? 'group-hover:scale-105' : 'group-hover:scale-110'
         } transition-transform duration-300`}>
           <div className="w-full h-full rounded-3xl bg-gray-900/90 backdrop-blur-sm overflow-hidden">
-            <img 
+            <Image 
               src={member.imageUrl || '/default-avatar.svg'} 
               alt={member.name}
+              width={300}
+              height={400}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
           </div>

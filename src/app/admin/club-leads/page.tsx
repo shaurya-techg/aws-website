@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { createClubLead, getClubLeads, deleteClubLead } from "@/actions/club-lead-actions";
 import { toast, Toaster } from "sonner";
 
@@ -181,9 +182,11 @@ export default function ManageClubLeads() {
                       {roleLeads.map((lead) => (
                         <div key={lead.id} className="bg-[#23234a] rounded-lg p-4">
                           {lead.imageUrl && (
-                            <img
+                            <Image
                               src={lead.imageUrl}
                               alt={lead.name}
+                              width={400}
+                              height={200}
                               className="w-full h-48 object-cover rounded-lg mb-4"
                             />
                           )}

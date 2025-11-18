@@ -1,5 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
 import EventsSection from '@/components/EventsSection'
 import { motion, useInView } from 'framer-motion'
 import { getUpcomingEvents } from '@/actions/event-actions'
@@ -96,7 +97,7 @@ const UpcomingEventsSlideshow = () => {
             <div className="p-6 sm:p-8 md:p-12 text-center">
               <div className="mb-6 sm:mb-8">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-4 sm:mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center">
-                  <img src={EVE.src} alt="No Upcoming Events" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
+                  <Image src={EVE} alt="No Upcoming Events" width={48} height={48} className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" />
                 </div>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90 mb-2 sm:mb-4">No Upcoming Events</h3>
                 <p className="text-white/60 text-base sm:text-lg md:text-xl">
@@ -124,9 +125,11 @@ const UpcomingEventsSlideshow = () => {
                         {/* Event Image */}
                         <div className="order-2 md:order-1">
                           {event.imageUrl ? (
-                            <img
+                            <Image
                               src={event.imageUrl}
                               alt={event.title}
+                              width={600}
+                              height={400}
                               className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover rounded-xl"
                             />
                           ) : (

@@ -1,7 +1,5 @@
 'use client';
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import Image from "next/image";
 
 export default function BePartSection() {
     return (
@@ -16,8 +14,10 @@ export default function BePartSection() {
             
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl flex flex-col justify-center items-center space-y-8 sm:space-y-12">
-                <img 
+                <Image 
                     src="/bepart.svg" 
+                    width={800}
+                    height={400}
                     className="w-full max-w-2xl sm:max-w-3xl lg:max-w-4xl h-auto" 
                     alt="Be Part of the Community"
                 />

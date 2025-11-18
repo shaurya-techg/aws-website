@@ -1,8 +1,7 @@
 'use client';
-import { Inter } from "next/font/google";
 import Link from "next/link";
+import Image from "next/image";
 import logo from '../../public/Logo.svg'
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Footer() {
     return (
@@ -12,7 +11,7 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     {/* AWS Cloud Club Info */}
                     <div className="space-y-4">
-                        <img src={logo.src} alt="AWS Cloud Club Logo" className="w-32 h-auto mb-2" />
+                        <Image src={logo.src} alt="AWS Cloud Club Logo" width={128} height={64} className="w-32 h-auto mb-2" />
                         <div className="text-gray-400 text-sm">
                             <p>AWSCC GGSIPU EDC</p>
                         </div>

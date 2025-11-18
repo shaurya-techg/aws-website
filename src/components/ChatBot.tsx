@@ -10,7 +10,6 @@ interface Message {
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -104,9 +103,8 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* Floating Chat Button - only show when not at footer */}
-      {isVisible && (
-        <div className="fixed bottom-6 right-6 z-50">
+      {/* Floating Chat Button */}
+      <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={toggleChat}
             className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group"
@@ -217,8 +215,7 @@ export default function ChatBot() {
             </div>
           </div>
         )}
-        </div>
-      )}
+      </div>
     </>
   );
 }

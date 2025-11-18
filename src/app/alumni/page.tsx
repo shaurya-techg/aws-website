@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import Image from 'next/image';
 
 interface Alumni {
   id: string;
@@ -131,9 +132,11 @@ export default function AlumniPage() {
                   {/* Profile Image */}
                   <div className="relative mb-2 sm:mb-3 lg:mb-4">
                     {alumniMember.imageUrl ? (
-                      <img
+                      <Image
                         src={alumniMember.imageUrl}
                         alt={alumniMember.name}
+                        width={400}
+                        height={250}
                         className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-t-lg lg:rounded-t-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
                       />
                     ) : (
@@ -204,9 +207,11 @@ export default function AlumniPage() {
                   {/* Profile Image */}
                   <div className="relative mb-2 sm:mb-3 lg:mb-4">
                     {alumniMember.imageUrl ? (
-                      <img
+                      <Image
                         src={alumniMember.imageUrl}
                         alt={alumniMember.name}
+                        width={400}
+                        height={250}
                         className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-t-lg lg:rounded-t-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
                       />
                     ) : (

@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { createAlumni, getAlumni, deleteAlumni, updateAlumni } from "@/actions/alumni-actions";
 import { toast, Toaster } from "sonner";
 
@@ -209,9 +210,11 @@ export default function ManageAlumni() {
               {alumni.map((alumniMember) => (
                 <div key={alumniMember.id} className="bg-[#23234a] rounded-lg p-3 sm:p-4">
                   {alumniMember.imageUrl && (
-                    <img
+                    <Image
                       src={alumniMember.imageUrl}
                       alt={alumniMember.name}
+                      width={400}
+                      height={200}
                       className="w-full h-36 sm:h-48 object-cover rounded-lg mb-3 sm:mb-4"
                     />
                   )}

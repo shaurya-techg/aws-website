@@ -1,6 +1,7 @@
 'use client';
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface EventCardProps {
   title: string;
@@ -37,9 +38,11 @@ const EventCard: React.FC<EventCardProps> = ({
     >
       {/* Event Image */}
       <div className="relative h-48 w-full overflow-hidden">
-        <img
+        <Image
           src={image}
           alt={title}
+          width={400}
+          height={192}
           className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
         />
         {/* Tag positioned on top right of image */}

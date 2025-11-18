@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { createTeamMember, getTeamMembers, deleteTeamMember } from "@/actions/team-member-actions";
 import { toast, Toaster } from "sonner";
 
@@ -250,9 +251,11 @@ export default function ManageTeamMembers() {
                       key={member.id} 
                       className="bg-[#23234a] rounded-lg p-3 sm:p-4 transform transition-all duration-300 hover:scale-105 hover:bg-[#2a2a4a]"
                     >
-                      <img
+                      <Image
                         src={member.imageUrl || '/placeholder.jpg'}
                         alt={member.name}
+                        width={400}
+                        height={200}
                         className="w-full h-32 sm:h-40 md:h-48 object-cover rounded-lg mb-3 sm:mb-4"
                       />
                       <h4 className="text-base sm:text-lg font-semibold text-white mb-2">{member.name}</h4>

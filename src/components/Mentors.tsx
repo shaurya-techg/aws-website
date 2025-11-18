@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 interface Mentor {
   name: string;
@@ -40,7 +41,7 @@ export default function Mentors() {
             transition={{ duration: 1.1, delay: idx * 0.15, ease: "easeOut" }}
           >
             <div className="w-full aspect-square mb-6 overflow-hidden">
-              <img src={mentor.image} alt={mentor.name} className="w-full h-full object-contain" />
+              <Image src={mentor.image} alt={mentor.name} width={300} height={300} className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col items-center bg-gradient-to-b from-[#8444E8] to-[#4349FF] p-4 rounded-lg transition-all duration-300">
               <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 text-center">{mentor.name}</h3>

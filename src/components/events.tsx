@@ -1,33 +1,7 @@
 'use client';
-import left from '../../public/Left.svg'
-import right from '../../public/Right.svg'
 import React, { useState, useEffect } from 'react';
-import { Inter } from "next/font/google";
+import Image from 'next/image';
 import { getLatestEvents } from '@/actions/event-actions';
-
-// Custom CSS for scrollbar
-const customScrollbarStyles = `
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(3, 0, 18, 0.3);
-    border-radius: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(156, 108, 254, 0.5);
-    border-radius: 4px;
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(156, 108, 254, 0.8);
-  }
-`;
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal']
-});
 
 interface EventSlide {
   id: string;
@@ -143,9 +117,11 @@ export default function Events() {
             <div className="order-2 lg:order-1 flex justify-center">
               <div className="relative w-full max-w-md sm:max-w-lg lg:max-w-none h-80 sm:h-96 lg:h-[480px] rounded-2xl overflow-hidden bg-gradient-to-br from-purple-600/20 to-blue-600/20 shadow-xl">
                 {events[currentSlide]?.imageUrl ? (
-                  <img 
+                  <Image 
                     src={events[currentSlide].imageUrl} 
                     alt={events[currentSlide].title}
+                    width={600}
+                    height={480}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
