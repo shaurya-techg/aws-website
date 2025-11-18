@@ -18,6 +18,7 @@ export const auth = betterAuth({
   },
   trustedOrigins: [
     "http://localhost:3000",
+    "https://main.dwks2aqy4w57r.amplifyapp.com",
     process.env.BETTER_AUTH_URL || "http://localhost:3000"
   ],
   advanced: {
