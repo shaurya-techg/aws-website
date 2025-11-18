@@ -94,7 +94,7 @@ export default function Home() {
         </div>
       </div>
         <motion.div 
-        className="my-8 sm:my-12 lg:my-16"
+        className="my-10 mt-16 lg:mt-10 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}

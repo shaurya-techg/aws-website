@@ -112,13 +112,12 @@ export default function ChatBot() {
           {/* Chat Icon */}
           <svg 
             className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" 
-            fill="currentColor" 
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
             viewBox="0 0 24 24"
           >
-            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04.97 4.43L1 23l6.57-1.97C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10zm0 18c-1.1 0-2.15-.25-3.1-.7L4 20l.7-4.9C4.25 14.15 4 13.1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
-            <circle cx="9" cy="12" r="1"/>
-            <circle cx="12" cy="12" r="1"/>
-            <circle cx="15" cy="12" r="1"/>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
         </button>
 
@@ -129,8 +128,8 @@ export default function ChatBot() {
             <div className="bg-gradient-to-r from-[#843aed] to-[#4349ff] p-4 flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3.04.97 4.43L1 23l6.57-1.97C9.96 21.64 11.46 22 13 22h7c1.1 0 2-.9 2-2V12c0-5.52-4.48-10-10-10z"/>
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
                 </div>
                 <div>
