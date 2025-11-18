@@ -3,6 +3,13 @@
 import { prisma } from '@/lib/prisma'
 import { v2 as cloudinary } from 'cloudinary'
 
+// Types
+interface CloudinaryResponse {
+  secure_url: string;
+  public_id: string;
+  [key: string]: unknown;
+}
+
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -42,10 +49,10 @@ export async function createAlumni(formData: FormData) {
           },
           (error, result) => {
             if (error) reject(error)
-            else resolve(result)
+            else resolve(result as CloudinaryResponse)
           }
         ).end(buffer)
-      }) as any
+      }) as CloudinaryResponse
 
       imageUrl = uploadResponse.secure_url
     }
@@ -116,19 +123,25 @@ export async function updateAlumni(id: string, formData: FormData) {
           },
           (error, result) => {
             if (error) reject(error)
-            else resolve(result)
+            else resolve(result as CloudinaryResponse)
           }
         ).end(buffer)
-      }) as any
+      }) as CloudinaryResponse
 
       imageUrl = uploadResponse.secure_url
     }
 
-    const updateData: any = {
+    const updateData: {
+      name: string;
+      role: string;
+      session: string;
+      linkedin?: string;
+      imageUrl?: string;
+    } = {
       name,
       role,
       session,
-      linkedin: linkedin || null,
+      linkedin: linkedin || undefined,
     }
 
     if (imageUrl) {

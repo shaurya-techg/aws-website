@@ -1,5 +1,6 @@
 'use client';
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import logo from '../../public/Logo.svg'
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,7 @@ export default function Footer() {
                     <div className="space-y-4">
                         <h4 className="text-lg font-semibold text-white">Quick Links</h4>
                         <ul className="space-y-2 text-gray-300 text-sm">
-                            <li><a href="/" className="hover:text-[#843aed] transition-colors duration-300">Home</a></li>
+                            <li><Link href="/" className="hover:text-[#843aed] transition-colors duration-300">Home</Link></li>
                             <li><a href="/events" className="hover:text-[#843aed] transition-colors duration-300">Events</a></li>
                             <li><a href="/teams" className="hover:text-[#843aed] transition-colors duration-300">Teams</a></li>
                             <li><a href="/alumni" className="hover:text-[#843aed] transition-colors duration-300">Alumni</a></li>

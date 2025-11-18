@@ -4,9 +4,20 @@ import { useRouter } from "next/navigation";
 import { createClubLead, getClubLeads, deleteClubLead } from "@/actions/club-lead-actions";
 import { toast, Toaster } from "sonner";
 
+interface ClubLead {
+  id: string;
+  name: string;
+  role: string;
+  linkedin?: string | null;
+  imageUrl?: string | null;
+  year?: string | null;
+  email?: string | null;
+  phone?: string | null;
+}
+
 export default function ManageClubLeads() {
   const router = useRouter();
-  const [clubLeads, setClubLeads] = useState<any[]>([]);
+  const [clubLeads, setClubLeads] = useState<ClubLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 

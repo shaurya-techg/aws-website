@@ -1,12 +1,25 @@
 "use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { createEvent, getEvents, deleteEvent } from "@/actions/event-actions";
 import { toast, Toaster } from "sonner";
 
+interface Event {
+  id: string;
+  title: string;
+  description: string | null;
+  date: Date | string;
+  imageUrl?: string | null;
+  time?: string | null;
+  location?: string | null;
+  tag?: string | null;
+  link?: string | null;
+}
+
 export default function ManageEvents() {
   const router = useRouter();
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
@@ -191,9 +204,11 @@ export default function ManageEvents() {
               {events.map((event) => (
                 <div key={event.id} className="bg-[#23234a] rounded-lg p-3 sm:p-4">
                   {event.imageUrl && (
-                    <img
+                    <Image
                       src={event.imageUrl}
                       alt={event.title}
+                      width={400}
+                      height={200}
                       className="w-full h-36 sm:h-48 object-cover rounded-lg mb-3 sm:mb-4"
                     />
                   )}

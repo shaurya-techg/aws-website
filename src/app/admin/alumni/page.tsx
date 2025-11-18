@@ -4,12 +4,21 @@ import { useRouter } from "next/navigation";
 import { createAlumni, getAlumni, deleteAlumni, updateAlumni } from "@/actions/alumni-actions";
 import { toast, Toaster } from "sonner";
 
+interface Alumni {
+  id: string;
+  name: string;
+  role: string;
+  session: string;
+  linkedin?: string | null;
+  imageUrl?: string | null;
+}
+
 export default function ManageAlumni() {
   const router = useRouter();
-  const [alumni, setAlumni] = useState<any[]>([]);
+  const [alumni, setAlumni] = useState<Alumni[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingAlumni, setEditingAlumni] = useState<any>(null);
+  const [editingAlumni, setEditingAlumni] = useState<Alumni | null>(null);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem('adminLoggedIn');
@@ -63,7 +72,7 @@ export default function ManageAlumni() {
     }
   };
 
-  const handleEdit = (alumniMember: any) => {
+  const handleEdit = (alumniMember: Alumni) => {
     setEditingAlumni(alumniMember);
     setShowForm(true);
   };

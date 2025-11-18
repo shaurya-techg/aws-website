@@ -4,14 +4,23 @@ import { useRouter } from "next/navigation";
 import { createTeamMember, getTeamMembers, deleteTeamMember } from "@/actions/team-member-actions";
 import { toast, Toaster } from "sonner";
 
+interface TeamMember {
+  id: string;
+  name: string;
+  position: string;
+  department: string | null;
+  linkedin: string | null;
+  imageUrl?: string | null;
+}
+
 export default function ManageTeamMembers() {
   const router = useRouter();
-  const [SW, setSW] = useState<any[]>([]);
-  const [AI, setAI] = useState<any[]>([]);
-  const [CC, setCC] = useState<any[]>([]);
-  const [DE, setDE] = useState<any[]>([]);
-  const [PR, setPR] = useState<any[]>([]);
-  const [SM, setSM] = useState<any[]>([]);
+  const [SW, setSW] = useState<TeamMember[]>([]);
+  const [AI, setAI] = useState<TeamMember[]>([]);
+  const [CC, setCC] = useState<TeamMember[]>([]);
+  const [DE, setDE] = useState<TeamMember[]>([]);
+  const [PR, setPR] = useState<TeamMember[]>([]);
+  const [SM, setSM] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [visibleDepartments, setVisibleDepartments] = useState<{[key: string]: boolean}>({
@@ -242,7 +251,7 @@ export default function ManageTeamMembers() {
                       className="bg-[#23234a] rounded-lg p-3 sm:p-4 transform transition-all duration-300 hover:scale-105 hover:bg-[#2a2a4a]"
                     >
                       <img
-                        src={member.imageUrl}
+                        src={member.imageUrl || '/placeholder.jpg'}
                         alt={member.name}
                         className="w-full h-32 sm:h-40 md:h-48 object-cover rounded-lg mb-3 sm:mb-4"
                       />

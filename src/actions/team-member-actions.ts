@@ -3,6 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import cloudinary from "@/lib/cloudinary";
 
+// Types
+interface CloudinaryResponse {
+  secure_url: string;
+  public_id: string;
+  [key: string]: unknown;
+}
+
 export async function createTeamMember(formData: FormData) {
   try {
     const name = formData.get("name") as string;
@@ -40,7 +47,7 @@ export async function createTeamMember(formData: FormData) {
         ).end(buffer);
       });
 
-      imageUrl = (uploadResponse as any).secure_url;
+      imageUrl = (uploadResponse as CloudinaryResponse).secure_url;
     }
 
     // Create team member in database
@@ -107,7 +114,13 @@ export async function updateTeamMember(id: string, formData: FormData) {
     const department = formData.get("department") as string;
     const image = formData.get("image") as File;
 
-    let updateData: any = {
+    const updateData: {
+      name: string;
+      position: string;
+      linkedin: string;
+      department: string;
+      imageUrl?: string;
+    } = {
       name,
       position,
       linkedin,
@@ -141,7 +154,7 @@ export async function updateTeamMember(id: string, formData: FormData) {
         ).end(buffer);
       });
 
-      updateData.imageUrl = (uploadResponse as any).secure_url;
+      updateData.imageUrl = (uploadResponse as CloudinaryResponse).secure_url;
     }
 
     // Update team member in database

@@ -3,6 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import cloudinary from "@/lib/cloudinary";
 
+// Types
+interface CloudinaryResponse {
+  secure_url: string;
+  public_id: string;
+  [key: string]: unknown;
+}
+
 export async function createClubLead(formData: FormData) {
   try {
     const name = formData.get("name") as string;
@@ -30,7 +37,7 @@ export async function createClubLead(formData: FormData) {
         ).end(buffer);
       });
 
-      imageUrl = (uploadResponse as any).secure_url;
+      imageUrl = (uploadResponse as CloudinaryResponse).secure_url;
     }
 
     // Create club lead in database
@@ -109,7 +116,12 @@ export async function updateClubLead(id: string, formData: FormData) {
     const linkedin = formData.get("linkedin") as string;
     const image = formData.get("image") as File;
 
-    let updateData: any = {
+    const updateData: {
+      name: string;
+      role: string;
+      linkedin?: string;
+      imageUrl?: string;
+    } = {
       name,
       role,
       linkedin,
@@ -133,7 +145,7 @@ export async function updateClubLead(id: string, formData: FormData) {
         ).end(buffer);
       });
 
-      updateData.imageUrl = (uploadResponse as any).secure_url;
+      updateData.imageUrl = (uploadResponse as CloudinaryResponse).secure_url;
     }
 
     // Update club lead in database

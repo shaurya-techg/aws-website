@@ -1,7 +1,5 @@
 "use server"
 
-import { Client } from 'pg';
-
 export async function simpleAdminSignIn(formData: FormData) {
     const email = String(formData.get("email"));
     const password = String(formData.get("password"));

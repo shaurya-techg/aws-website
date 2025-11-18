@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Logo from '../../public/Logo.svg';
 
 export default function Navbar() {
@@ -52,7 +53,7 @@ export default function Navbar() {
             
             {/* Desktop Navigation - Hidden on md screens and below */}
             <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 text-white font-semibold py-4 lg:py-6 space-x-8 xl:space-x-16">
-                <a href='/' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 text-sm xl:text-base">HOME</a>
+                <Link href='/' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 text-sm xl:text-base">HOME</Link>
                 <a href='/events' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 text-sm xl:text-base">EVENTS</a>
                 <a href='/teams' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 text-sm xl:text-base">TEAM</a>
                 <a href='/alumni' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 text-sm xl:text-base">ALUMNI</a>
@@ -85,7 +86,7 @@ export default function Navbar() {
             isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'
         }`}>
             <div className="flex flex-col space-y-3 sm:space-y-4 p-4 sm:p-6">
-                <a href="/" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 py-2 border-b border-white/10 text-sm sm:text-base">HOME</a>
+                <Link href="/" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 py-2 border-b border-white/10 text-sm sm:text-base">HOME</Link>
                 <a href="/events" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 py-2 border-b border-white/10 text-sm sm:text-base">EVENTS</a>
                 <a href="/teams" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 py-2 border-b border-white/10 text-sm sm:text-base">TEAM</a>
                 <a href="/alumni" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-300 py-2 border-b border-white/10 text-sm sm:text-base">ALUMNI</a>

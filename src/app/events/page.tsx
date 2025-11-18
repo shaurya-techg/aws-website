@@ -100,7 +100,7 @@ const UpcomingEventsSlideshow = () => {
                 </div>
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white/90 mb-2 sm:mb-4">No Upcoming Events</h3>
                 <p className="text-white/60 text-base sm:text-lg md:text-xl">
-                  We're brewing something exciting—upcoming events will be announced soon!
+                  We&apos;re brewing something exciting—upcoming events will be announced soon!
                 </p>
               </div>
               <div className="flex justify-center space-x-2">
@@ -118,7 +118,7 @@ const UpcomingEventsSlideshow = () => {
                   animate={{ x: `-${currentSlide * 100}%` }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
-                  {events.map((event, index) => (
+                  {events.map((event) => (
                     <div key={event.id} className="w-full flex-shrink-0">
                       <div className="p-6 sm:p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center">
                         {/* Event Image */}
@@ -210,8 +210,8 @@ const UpcomingEventsSlideshow = () => {
   );
 };
 
-const page = () => {
-  const ref = useRef(null);
+const Page = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
@@ -290,4 +290,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

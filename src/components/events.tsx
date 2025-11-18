@@ -59,8 +59,8 @@ export default function Events() {
         // Map the database result to ensure all fields are present
         const eventsWithTag = events.map(event => ({
           ...event,
-          tag: (event as any).tag || null,
-          time: (event as any).time || null
+          tag: event.tag || null,
+          time: event.time || null
         }));
         setEvents(eventsWithTag);
       } catch (error) {

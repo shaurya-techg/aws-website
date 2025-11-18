@@ -31,7 +31,7 @@ const EventsSection = () => {
         const result = await getPastEvents(50); // Get latest 50 past events
         if (result.events) {
           // Map the database result to ensure all fields are present
-          const eventsWithTag = result.events.map((event: any) => ({
+          const eventsWithTag = result.events.map((event: Event) => ({
             ...event,
             tag: event.tag || null,
             time: event.time || null

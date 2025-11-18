@@ -3,6 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import cloudinary from "@/lib/cloudinary";
 
+// Types
+interface CloudinaryResponse {
+  secure_url: string;
+  public_id: string;
+  [key: string]: unknown;
+}
+
 export async function createEvent(formData: FormData) {
   try {
     const title = formData.get("title") as string;
@@ -43,7 +50,7 @@ export async function createEvent(formData: FormData) {
         ).end(buffer);
       });
 
-      imageUrl = (uploadResponse as any).secure_url;
+      imageUrl = (uploadResponse as CloudinaryResponse).secure_url;
     }
 
     // Create event in database
