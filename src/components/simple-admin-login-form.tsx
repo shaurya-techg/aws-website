@@ -55,7 +55,7 @@ export const SimpleAdminLoginForm = () => {
             </div>
             <button
                 type="submit"
-                className="w-full bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white font-bold py-3 rounded-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white font-bold py-3 rounded-lg hover:scale-105 transition-transform duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={isPending}
             >
                 {isPending ? "Signing in..." : "Sign In"}

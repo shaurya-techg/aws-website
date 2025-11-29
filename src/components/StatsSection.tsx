@@ -9,7 +9,7 @@ interface StatCounterProps {
   duration?: number
 }
 
-function StatCounter({ end, label, suffix = '', duration = 2000 }: StatCounterProps) {
+function StatCounter({ end, label, suffix = '', duration = 1000 }: StatCounterProps) {
   const [count, setCount] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const countRef = useRef<HTMLDivElement>(null)

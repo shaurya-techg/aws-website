@@ -22,14 +22,14 @@ const Teams = () => {
       className="absolute top-0 left-0 h-1 bg-[#4677FF] rounded-tl-lg"
       initial={{ width: 0 }}
       animate={isInView ? { width: '50%' } : { width: 0 }}
-      transition={{ duration: 0.7, delay: 0.5, ease: 'easeOut' }}
+      transition={{ duration: 0.4, delay: 0.3, ease: 'easeOut' }}
       style={{zIndex: 20}}
     />
     <motion.div
       className="absolute top-0 left-0 w-1 bg-[#4677FF] rounded-tl-lg"
       initial={{ height: 0 }}
       animate={isInView ? { height: '50%' } : { height: 0 }}
-      transition={{ duration: 0.7, delay: 0.7, ease: 'easeOut' }}
+      transition={{ duration: 0.4, delay: 0.4, ease: 'easeOut' }}
       style={{zIndex: 20}}
     />
     {/* Animated bottom-right border: half width and half height */}
@@ -37,14 +37,14 @@ const Teams = () => {
       className="absolute bottom-0 right-0 h-1 bg-[#B346F5] rounded-br-lg"
       initial={{ width: 0 }}
       animate={isInView ? { width: '50%' } : { width: 0 }}
-      transition={{ duration: 0.7, delay: 0.9, ease: 'easeOut' }}
+      transition={{ duration: 0.4, delay: 0.5, ease: 'easeOut' }}
       style={{zIndex: 20}}
     />
     <motion.div
       className="absolute bottom-0 right-0 w-1 bg-[#B346F5] rounded-br-lg"
       initial={{ height: 0 }}
       animate={isInView ? { height: '50%' } : { height: 0 }}
-      transition={{ duration: 0.7, delay: 1.1, ease: 'easeOut' }}
+      transition={{ duration: 0.4, delay: 0.6, ease: 'easeOut' }}
       style={{zIndex: 20}}
     />
       {/* Animated background line that expands */}
@@ -57,11 +57,11 @@ const Teams = () => {
           top: "0%" 
         } : { scaleX: 0, height: "2px", top: "50%" }}
         transition={{ 
-          duration: 1.2, 
+          duration: 0.7, 
           ease: "easeInOut",
-          scaleX: { duration: 0.6 },
-          height: { duration: 0.8, delay: 0.4 },
-          top: { duration: 0.8, delay: 0.4 }
+          scaleX: { duration: 0.3 },
+          height: { duration: 0.4, delay: 0.2 },
+          top: { duration: 0.4, delay: 0.2 }
         }}
         style={{ transformOrigin: "center" }}
       />
@@ -70,14 +70,14 @@ const Teams = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
         className="relative z-10"
       >
         <motion.h1 
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-bold text-center mb-8 sm:mb-10 lg:mb-12"
           initial={{ y: 30, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
         >
           Teams
         </motion.h1>
@@ -87,7 +87,7 @@ const Teams = () => {
           style={{ background: 'transparent' }}
           initial={{ y: 50, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
         >        
         {/* Team Components with staggered animation */}
         {[
@@ -102,7 +102,7 @@ const Teams = () => {
             key={index}
             initial={{ opacity: 0, scale: 0.8, y: 30 }}
             animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 30 }}
-            transition={{ duration: 0.6, delay: item.delay, type: "spring", stiffness: 100 }}
+            transition={{ duration: 0.3, delay: item.delay, type: "spring", stiffness: 100 }}
           >
             {item.component}
           </motion.div>

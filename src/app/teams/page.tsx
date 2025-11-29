@@ -136,7 +136,7 @@ export default function TeamsPage() {
                   opacity: [0.5, 1, 0.5]
                 }}
                 transition={{ 
-                  duration: 2,
+                  duration: 1,
                   repeat: Infinity,
                   delay: team.delay
                 }}

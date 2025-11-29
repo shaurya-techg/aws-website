@@ -28,12 +28,12 @@ const EventCard: React.FC<EventCardProps> = ({
     <a href={link} target="_blank">
     <motion.div
       whileHover={{ y: -8, scale: 1.03 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
+      transition={{ duration: 0.1, ease: "easeOut" }}
       className="relative max-w-sm rounded-2xl overflow-hidden
                  bg-gradient-to-b from-[#0A001A] via-[#110024] to-[#0A001A]
                  border border-[#6C3DD1]/30 hover:border-[#8B5CF6]/50 
                  shadow-[0_0_20px_rgba(140,82,255,0.2)] hover:shadow-[0_0_30px_rgba(140,82,255,0.4)] 
-                 cursor-pointer backdrop-blur-md transition-all duration-200"
+                 cursor-pointer backdrop-blur-md transition-all duration-100"
       
     >
       {/* Event Image */}
@@ -43,7 +43,7 @@ const EventCard: React.FC<EventCardProps> = ({
           alt={title}
           width={400}
           height={192}
-          className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-100 hover:scale-105"
         />
         {/* Tag positioned on top right of image */}
         {tag && (

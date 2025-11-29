@@ -107,11 +107,11 @@ export default function ChatBot() {
       <div className="fixed bottom-6 right-6 z-50">
           <button
             onClick={toggleChat}
-            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center group"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-[#843aed] to-[#4349ff] shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-150 flex items-center justify-center group"
           >
           {/* Chat Icon */}
           <svg 
-            className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-300" 
+            className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:scale-110 transition-transform duration-150" 
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -139,7 +139,7 @@ export default function ChatBot() {
               </div>
               <button 
                 onClick={toggleChat}
-                className="text-white/80 hover:text-white transition-colors duration-200"
+                className="text-white/80 hover:text-white transition-colors duration-100"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -204,7 +204,7 @@ export default function ChatBot() {
                 <button 
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
-                  className="bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white p-2 rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white p-2 rounded-lg hover:shadow-lg transition-all duration-100 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

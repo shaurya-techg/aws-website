@@ -122,7 +122,7 @@ export default function Events() {
                     alt={events[currentSlide].title}
                     width={600}
                     height={480}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -276,7 +276,7 @@ export default function Events() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 ${
+              className={`transition-all duration-150 ${
                 index === currentSlide 
                   ? 'w-10 h-4 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full' 
                   : 'w-4 h-4 bg-gray-500 hover:bg-gray-400 rounded-full'

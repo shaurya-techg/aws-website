@@ -30,13 +30,13 @@ export default function Home() {
           className="flex flex-col sm:flex-row items-center space-y-6 sm:space-y-0 sm:space-x-6 md:space-x-8 lg:space-x-14 mb-12 sm:mb-16 lg:mb-20 mt-4 sm:mt-6 lg:mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
         >
           <motion.div 
             className="w-full sm:w-2/5 flex justify-center order-1 sm:order-2 pt-2 sm:pt-4 md:pt-6 px-4 sm:px-6 md:px-8 lg:px-10"
             initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.8, type: "spring", stiffness: 100 }}
+            transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 100 }}
           >
               <Image src={prductivity.src} width={600} height={400} className="w-full max-w-md sm:max-w-full" alt="Productivity" />
           </motion.div>
@@ -44,7 +44,7 @@ export default function Home() {
           className="w-full sm:w-3/5 flex flex-col items-center justify-center py-2 sm:py-4 md:py-6 lg:py-8 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-20 gap-3 sm:gap-4 md:gap-6 order-2 sm:order-1"
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, type: "spring", damping: 25 }}
+          transition={{ duration: 0.4, delay: 0.2, type: "spring", damping: 25 }}
         >
           <motion.img 
             src={punchline.src} 
@@ -52,7 +52,7 @@ export default function Home() {
             alt="Punchline"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
           />
           <motion.img 
             src={description.src} 
@@ -60,7 +60,7 @@ export default function Home() {
             alt="Description"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
+            transition={{ duration: 0.3, delay: 0.5 }}
           />
         </motion.div>
       </motion.div>
@@ -68,7 +68,7 @@ export default function Home() {
         className="mt-20 sm:mt-32 lg:mt-40 mb-8 sm:mb-12 lg:mb-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <StatsSection />
@@ -97,7 +97,7 @@ export default function Home() {
         className="my-10 mt-16 lg:mt-10 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <ClubLeadership />
@@ -108,7 +108,7 @@ export default function Home() {
         className="my-8 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <Teams />
@@ -117,7 +117,7 @@ export default function Home() {
         className="my-8 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         viewport={{ once: true, amount: 0.3 }}
       >
       </motion.div>
@@ -125,7 +125,7 @@ export default function Home() {
         className="my-8 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <div className="py-8 sm:py-12 md:py-14 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-10">
@@ -140,7 +140,7 @@ export default function Home() {
       <motion.div 
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <Mentors />
@@ -151,7 +151,7 @@ export default function Home() {
         className="my-8 sm:my-12 lg:my-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
         viewport={{ once: true, amount: 0.3 }}
       >
         <BePartSection />

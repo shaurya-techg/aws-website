@@ -60,13 +60,13 @@ export default function AlumniPage() {
             className="text-center mb-16 sm:mb-24"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5 }}
           >
             <motion.div
               className="inline-block relative"
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               animate={isInView ? { clipPath: "inset(0 0% 0 0)" } : { clipPath: "inset(0 100% 0 0)" }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
             >
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
                 <span className="bg-gradient-to-r from-[#843aed] via-[#4349ff] to-[#843aed] bg-clip-text text-transparent bg-300% animate-gradient">
@@ -79,7 +79,7 @@ export default function AlumniPage() {
               className="mt-6 h-1 bg-gradient-to-r from-transparent via-[#843aed] to-transparent mx-auto"
               initial={{ width: 0 }}
               animate={isInView ? { width: "200px" } : { width: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             />
           </motion.div>
         ) : (
@@ -114,7 +114,7 @@ export default function AlumniPage() {
             className="relative"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
               {alumni.map((alumniMember, index) => (
@@ -140,7 +140,7 @@ export default function AlumniPage() {
                         className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-t-lg lg:rounded-t-xl border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300"
                       />
                     ) : (
-                      <div className="w-full h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-[#843aed]/20 to-[#4349ff]/20 rounded-lg lg:rounded-xl flex items-center justify-center border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-300">
+                      <div className="w-full h-32 sm:h-40 lg:h-48 bg-gradient-to-br from-[#843aed]/20 to-[#4349ff]/20 rounded-lg lg:rounded-xl flex items-center justify-center border-2 border-transparent group-hover:border-[#843aed]/30 transition-all duration-150">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-[#843aed] to-[#4349ff] rounded-full flex items-center justify-center">
                           <span className="text-white text-lg sm:text-xl lg:text-2xl font-bold">
                             {alumniMember.name.charAt(0)}

@@ -113,7 +113,7 @@ const EventsSection = () => {
           className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <span className="bg-gradient-to-r from-[#FCD8FF] to-[#843aed] bg-clip-text text-transparent">
             Past Events
@@ -160,7 +160,7 @@ const EventsSection = () => {
                       {
                         opacity: 1,
                         y: 0,
-                        duration: 0.5,
+                        duration: 0.25,
                         delay: 0.3,
                         ease: "power2.out",
                         scrollTrigger: {

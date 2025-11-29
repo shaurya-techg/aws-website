@@ -79,7 +79,7 @@ const UpcomingEventsSlideshow = () => {
           className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <span className="bg-gradient-to-r from-[#FCD8FF] to-[#843aed] bg-clip-text text-transparent">
             Upcoming Events
@@ -90,7 +90,7 @@ const UpcomingEventsSlideshow = () => {
           className="bg-gradient-to-br from-purple-900/20 to-blue-900/20 rounded-2xl border border-purple-500/20 overflow-hidden"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
         >
           {events.length === 0 ? (
             // No events state with same structure
@@ -117,7 +117,7 @@ const UpcomingEventsSlideshow = () => {
                 <motion.div
                   className="flex"
                   animate={{ x: `-${currentSlide * 100}%` }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
                 >
                   {events.map((event) => (
                     <div key={event.id} className="w-full flex-shrink-0">
@@ -177,7 +177,7 @@ const UpcomingEventsSlideshow = () => {
                               href={event.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white text-sm sm:text-base rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200"
+                              className="inline-block px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-[#843aed] to-[#4349ff] text-white text-sm sm:text-base rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-100"
                             >
                               Learn More
                             </a>
@@ -196,7 +196,7 @@ const UpcomingEventsSlideshow = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentSlide(index)}
-                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
+                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-100 ${
                         index === currentSlide
                           ? 'bg-purple-500 scale-110'
                           : 'bg-purple-500/30 hover:bg-purple-500/50'
@@ -245,13 +245,13 @@ const Page = () => {
               className="text-center mb-8 sm:mb-12 px-4 sm:px-6 lg:px-8"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.5 }}
             >
               <motion.div
                 className="inline-block relative"
                 initial={{ clipPath: "inset(0 100% 0 0)" }}
                 animate={isInView ? { clipPath: "inset(0 0% 0 0)" } : { clipPath: "inset(0 100% 0 0)" }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
                 <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold">
                   <span className="bg-gradient-to-r from-[#843aed] via-[#4349ff] to-[#843aed] bg-clip-text text-transparent bg-300% animate-gradient">
@@ -264,7 +264,7 @@ const Page = () => {
                 className="mt-6 h-1 bg-gradient-to-r from-transparent via-[#843aed] to-transparent mx-auto"
                 initial={{ width: 0 }}
                 animate={isInView ? { width: "200px" } : { width: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
               />
 
               {/* Added descriptive text */}
@@ -272,7 +272,7 @@ const Page = () => {
                 className="mt-8 max-w-4xl mx-auto"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 1, delay: 0.8 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <p className="text-lg sm:text-xl md:text-2xl text-white/80 leading-relaxed font-light">
                   Celebrating the journey of AWS, where every event is not just a gathering, but a{" "}
