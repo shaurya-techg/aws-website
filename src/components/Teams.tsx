@@ -95,8 +95,8 @@ const Teams = () => {
           { component: <TeamComponent path={ai.src} name="AI Development" description="Dive into the future of technology with AI." style="secondary" href="/teams/ai_dev" />, delay: 1.7 },
           { component: <TeamComponent path={cc.src} name="Cloud Computing" description="Learn about cloud infrastructure and services." style="primary" href="/teams/cloud" />, delay: 1.8 },
           { component: <TeamComponent path={des.src} name="Design" description="Unleash your creativity in design and UX." style="secondary" href="/teams/design" />, delay: 1.9 },
-          { component: <TeamComponent path={social.src} name="Social Media" description="Manage our online presence and community." style="primary" href="/teams/social_media" />, delay: 2.0 },
-          { component: <TeamComponent path={pr.src} name="PR & Sponsors" description="Build relationships and secure sponsorships." style="secondary" href="/teams/pr_sponsors" />, delay: 2.1 }
+          { component: <TeamComponent path={social.src} name="Sponsors" description="Securing sponsorships and building partnerships." style="primary" href="/teams/social_media" />, delay: 2.0 },
+          { component: <TeamComponent path={pr.src} name="PR & Social Media" description="Build relationships and secure sponsorships." style="secondary" href="/teams/pr_sponsors" />, delay: 2.1 }
         ].map((item, index) => (
           <motion.div
             key={index}

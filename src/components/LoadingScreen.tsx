@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Loading from "../svgs/loading";
-import Logo from "../../public/Logo.svg";
+import Logo from "../../public/new_logo.jpeg";
 
 export default function LoadingScreen() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-black px-4">
       {/* Your Logo */}
-      <Image src={Logo.src} alt="Logo" width={320} height={160} className="w-48 sm:w-64 md:w-80 h-auto -mb-8 sm:-mb-12 md:-mb-16" />
+      <Image src={Logo.src} alt="AWS Student Builder Group Logo" width={320} height={320} className="w-48 sm:w-64 md:w-80 h-auto rounded-2xl -mb-8 sm:-mb-12 md:-mb-16" />
 
       {/* Amazon-style loading animation */}
       <motion.div

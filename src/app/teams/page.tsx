@@ -32,11 +32,11 @@ export default function TeamsPage() {
       delay: 0.8
     },
     { 
-      component: <TeamComponent path={social.src} name="Social Media" description="Connecting communities" style="primary" href="/teams/social_media" />, 
+      component: <TeamComponent path={social.src} name="Sponsors" description="Securing sponsorships and building partnerships." style="primary" href="/teams/social_media" />, 
       delay: 1.0
     },
     { 
-      component: <TeamComponent path={pr.src} name="PR & Sponsors" description="Building partnerships" style="secondary" href="/teams/pr_sponsors" />, 
+      component: <TeamComponent path={pr.src} name="PR & Social Media" description="Building partnerships" style="secondary" href="/teams/pr_sponsors" />, 
       delay: 1.2
     }
   ];

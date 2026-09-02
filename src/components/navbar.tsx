@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '../../public/Logo.svg';
+import Logo from '../../public/new_logo.jpeg';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
            
             <a href='/admin/dashboard'>
                 <div className='flex items-center'>
-                    <Image src={Logo.src} alt="Logo" width={60} height={60} className="h-12 sm:h-14 lg:h-15 px-1 sm:px-1.5"/>
+                    <Image src={Logo.src} alt="AWS Student Builder Group Logo" width={60} height={60} className="h-12 sm:h-14 lg:h-15 w-auto object-contain rounded-md px-1 sm:px-1.5"/>
                     <div className='flex flex-col justify-center items-center text-sm sm:text-lg lg:text-xl p-1 sm:p-2'>
                         <p className="font-bold text-lg sm:text-2xl text-white">GGSIPU</p>
                         <p className="text-sm sm:text-base text-[#9C6CFE] font-semibold">EAST DELHI</p>

@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import Image from "next/image";
-import logo from '../../public/Logo.svg'
+import logo from '../../public/new_logo.jpeg';
 
 export default function Footer() {
     return (
@@ -9,11 +9,12 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto">
                 {/* Main Footer Content */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                    {/* AWS Cloud Club Info */}
+                    {/* AWS Student Builder Group Info */}
                     <div className="space-y-4">
-                        <Image src={logo.src} alt="AWS Cloud Club Logo" width={128} height={64} className="w-32 h-auto mb-2" />
+                        <Image src={logo.src} alt="AWS Student Builder Group Logo" width={128} height={128} className="w-28 h-auto rounded-xl mb-2" />
                         <div className="text-gray-400 text-sm">
-                            <p>AWSCC GGSIPU EDC</p>
+                            <p className="font-semibold text-white">AWS Student Builder Group</p>
+                            <p className="text-xs text-gray-400">GGSIPU EDC</p>
                         </div>
                     </div>
 
@@ -35,8 +36,8 @@ export default function Footer() {
                             <li><a href="/teams/ai_dev" className="hover:text-[#843aed] transition-colors duration-150">AI Development</a></li>
                             <li><a href="/teams/cloud" className="hover:text-[#843aed] transition-colors duration-150">Cloud Computing</a></li>
                             <li><a href="/teams/design" className="hover:text-[#843aed] transition-colors duration-150">Design</a></li>
-                            <li><a href="/teams/pr_sponsers" className="hover:text-[#843aed] transition-colors duration-150">PR & Sponsors</a></li>
-                            <li><a href="/teams/social_media" className="hover:text-[#843aed] transition-colors duration-150">Social Media</a></li>
+                            <li><a href="/teams/pr_sponsers" className="hover:text-[#843aed] transition-colors duration-150">PR & Social Media</a></li>
+                            <li><a href="/teams/social_media" className="hover:text-[#843aed] transition-colors duration-150">Sponsors</a></li>
                             <li><a href="/teams/software_dev" className="hover:text-[#843aed] transition-colors duration-150">Software Development</a></li>
                         </ul>
                     </div>
@@ -84,7 +85,7 @@ export default function Footer() {
                 <div className="border-t border-white/10 pt-6">
                     <div className="flex justify-center items-center ">
                         <div className="text-gray-400 text-sm">
-                            © {new Date().getFullYear()} AWS Cloud Club GGSIPU
+                            © {new Date().getFullYear()} AWS Student Builder Group (GGSIPU EDC)
                         </div>
                     </div>
                 </div>

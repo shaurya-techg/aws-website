@@ -21,7 +21,7 @@ export default function ChatBot() {
     // Initialize with welcome message only on client side
     setMessages([{
       id: '1',
-      text: "Hi! I'm your AWS Cloud Assistant. How can I help you learn about AWS Cloud Club GGSIPU today?",
+      text: "Hi! I'm your AWS Assistant. How can I help you learn about AWS Student Builder Group GGSIPU today?",
       isBot: true,
       timestamp: new Date()
     }]);
@@ -197,7 +197,7 @@ export default function ChatBot() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about AWS Cloud Club..."
+                  placeholder="Ask about AWS Student Builder Group..."
                   disabled={isLoading}
                   className="flex-1 bg-white/10 text-white placeholder-white/60 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#843aed]/50 disabled:opacity-50"
                 />

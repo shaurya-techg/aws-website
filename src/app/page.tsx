@@ -87,8 +87,8 @@ export default function Home() {
             About Us
           </h1>
           <p className="text-md sm:text-base md:text-xl lg:text-xl leading-relaxed">
-            The AWS Cloud Club helps students explore cloud technologies and their real-world applications in areas like security, AI, and business analytics. Through hands-on projects, members gain technical and business expertise, building industry-relevant skills for the future.<br />
-            Furthermore, the AWS Cloud Club will give students hands-on experience through projects in the AWS cloud, allowing students to develop both technical and business expertise in the cloud. This club will provide students with industry skills currently in high demand.
+            The AWS Student Builder Group helps students explore cloud technologies and their real-world applications in areas like security, AI, and business analytics. Through hands-on projects, members gain technical and business expertise, building industry-relevant skills for the future.<br />
+            Furthermore, the AWS Student Builder Group will give students hands-on experience through projects in the AWS cloud, allowing students to develop both technical and business expertise in the cloud. This group will provide students with industry skills currently in high demand.
           </p>
           </div>
         </div>

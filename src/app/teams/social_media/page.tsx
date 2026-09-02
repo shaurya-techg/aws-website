@@ -22,7 +22,7 @@ export default function SoftwareDevPage() {
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
-        const result = await getTeamMembersByDepartment('Social Media');
+        const result = await getTeamMembersByDepartment('Sponsors');
         if (result.success) {
           setLeads(result.leads);
           setCoLeads(result.coLeads);
@@ -56,7 +56,7 @@ export default function SoftwareDevPage() {
         transition={{ duration: 0.6 }}
       >
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent pb-4">
-          Social Media Team
+          Sponsors Team
         </h1>
         <div className="mt-2 h-1 w-48 bg-gradient-to-r from-transparent via-[#843aed] to-transparent mx-auto" />
       </motion.div>

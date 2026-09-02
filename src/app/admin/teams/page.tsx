@@ -34,7 +34,7 @@ export default function ManageTeamMembers() {
   });
   const departments = [SW, AI, CC, DE, PR, SM];
   const departmentKeys = ['SW', 'AI', 'CC', 'DE', 'PR', 'SM'];
-  const departmentNames = ['Software Development', 'Artificial Intelligence', 'Cloud Computing', 'Design', 'PR & Sponsorship', 'Social Media'];
+  const departmentNames = ['Software Development', 'Artificial Intelligence', 'Cloud Computing', 'Design', 'PR & Social Media', 'Sponsors'];
 
   const toggleDepartment = (deptKey: string) => {
     setVisibleDepartments(prev => ({
@@ -183,8 +183,8 @@ export default function ManageTeamMembers() {
                   <option value="Design">Design</option>
                   <option value="Artificial Intelligence">Artificial Intelligence</option>
                   <option value="Cloud Computing">Cloud Computing</option>
-                  <option value="PR & Sponsorship">PR & Sponsorship</option>
-                  <option value="Social Media">Social Media</option>
+                  <option value="PR & Social Media">PR & Social Media</option>
+                  <option value="Sponsors">Sponsors</option>
                 </select>
               </div>
               <div>

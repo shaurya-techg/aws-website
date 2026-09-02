@@ -82,8 +82,8 @@ export async function getTeamMembers() {
     const AI = teamMembers.filter(member => member.department === "Artificial Intelligence");
     const CC = teamMembers.filter(member => member.department === "Cloud Computing");
     const DE = teamMembers.filter(member => member.department === "Design");
-    const PR = teamMembers.filter(member => member.department === "PR & Sponsorship");
-    const SM = teamMembers.filter(member => member.department === "Social Media");
+    const PR = teamMembers.filter(member => member.department === "PR & Social Media");
+    const SM = teamMembers.filter(member => member.department === "Sponsors");
     return { SW, AI, CC, DE, PR, SM };
   } catch (error) {
     console.error("Error fetching team members:", error);
