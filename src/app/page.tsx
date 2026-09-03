@@ -3,7 +3,7 @@ import Image from "next/image";
 import description from "../../public/Description.svg";
 import punchline from "../../public/Punchline.svg";
 import { Inter } from "next/font/google";
-import prductivity from "../../public/productivity.svg";
+import newLogo from "../../public/new_logo.jpeg";
 import StatsSection from "@/components/StatsSection";
 import Teams from "@/components/Teams";
 import './globals.css';
@@ -38,7 +38,13 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             transition={{ duration: 0.5, delay: 0.4, type: "spring", stiffness: 100 }}
           >
-              <Image src={prductivity.src} width={600} height={400} className="w-full max-w-md sm:max-w-full" alt="Productivity" />
+              <Image 
+                src={newLogo.src} 
+                width={500} 
+                height={500} 
+                className="w-64 sm:w-72 md:w-80 lg:w-96 h-auto object-contain rounded-3xl drop-shadow-[0_0_40px_rgba(139,92,246,0.5)]" 
+                alt="AWS Student Builder Group Logo" 
+              />
           </motion.div>
         <motion.div 
           className="w-full sm:w-3/5 flex flex-col items-center justify-center py-2 sm:py-4 md:py-6 lg:py-8 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-20 gap-3 sm:gap-4 md:gap-6 order-2 sm:order-1"
