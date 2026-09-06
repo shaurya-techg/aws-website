@@ -9,7 +9,7 @@ frontend:
 
     build:
       commands:
-        - echo "DATABASE_URL is ${DATABASE_URL:+SET}"
+        - env | grep -e DATABASE_URL -e BETTER_AUTH_SECRET -e BETTER_AUTH_URL -e CLOUDINARY_CLOUD_NAME -e CLOUDINARY_API_KEY -e CLOUDINARY_API_SECRET -e ADMIN_EMAIL -e ADMIN_PASSWORD >> .env.production
         - bun run prisma generate
         - bun run build
 
