@@ -35,7 +35,7 @@ export const AdminLoginForm = () => {
                     type="email"
                     required
                     className="w-full p-3 rounded bg-[#23234a] text-white focus:outline-none focus:ring-2 focus:ring-[#843aed]"
-                    placeholder="admin@awscc.com"
+                    placeholder="admin@awssbg.com"
                 />
             </div>
             <div className="space-y-2">

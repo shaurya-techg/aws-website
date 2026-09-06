@@ -31,7 +31,7 @@ export default function BePartSection() {
                         }}
                     >
                         <span className="bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
-                            JOIN CLUB
+                            JOIN GROUP
                         </span>
                     </button>
                 </a>

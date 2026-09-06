@@ -46,23 +46,23 @@ export default function ManageClubLeads() {
     
     const result = await createClubLead(formData);
     if (result.success) {
-      toast.success("Club lead created successfully!");
+      toast.success("Group lead created successfully!");
       setShowForm(false);
       fetchClubLeads();
       (e.target as HTMLFormElement).reset();
     } else {
-      toast.error(result.error || "Failed to create club lead");
+      toast.error(result.error || "Failed to create group lead");
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Are you sure you want to delete this club lead?")) {
+    if (confirm("Are you sure you want to delete this group lead?")) {
       const result = await deleteClubLead(id);
       if (result.success) {
-        toast.success("Club lead deleted successfully!");
+        toast.success("Group lead deleted successfully!");
         fetchClubLeads();
       } else {
-        toast.error("Failed to delete club lead");
+        toast.error("Failed to delete group lead");
       }
     }
   };
@@ -81,14 +81,14 @@ export default function ManageClubLeads() {
         <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
             <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent">
-              Manage Club Leaders
+              Manage Group Leaders
             </h1>
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               <button
                 onClick={() => setShowForm(!showForm)}
                 className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-4 py-2 rounded-lg transition-colors text-sm sm:text-base"
               >
-                {showForm ? "Cancel" : "Add Club Leader"}
+                {showForm ? "Cancel" : "Add Group Leader"}
               </button>
               <button
                 onClick={() => router.push("/admin/dashboard")}
@@ -102,7 +102,7 @@ export default function ManageClubLeads() {
 
         {showForm && (
           <div className="bg-[#181828] rounded-xl p-4 sm:p-6 mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">Add New Club Leader</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-white mb-4">Add New Group Leader</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -156,16 +156,16 @@ export default function ManageClubLeads() {
                 type="submit"
                 className="bg-gradient-to-b from-[#843aed] to-[#4349ff] text-white px-6 py-3 rounded-lg hover:scale-105 transition-transform"
               >
-                Add Club Leader
+                Add Group Leader
               </button>
             </form>
           </div>
         )}
 
         <div className="bg-[#181828] rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-white mb-4">Club Leaders</h2>
+          <h2 className="text-xl font-semibold text-white mb-4">Group Leaders</h2>
           {clubLeads.length === 0 ? (
-            <p className="text-gray-400">No club leaders found.</p>
+            <p className="text-gray-400">No group leaders found.</p>
           ) : (
             <div className="space-y-6">
               {/* Group by role */}

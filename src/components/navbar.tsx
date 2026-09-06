@@ -78,7 +78,7 @@ export default function Navbar() {
             <a href="https://www.meetup.com/aws-cloud-club-at-ggsipu" target="_blank" rel="noopener noreferrer" className="hidden lg:block px-3 lg:px-4 py-2 lg:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full text-sm xl:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-150" style={{
                 borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
             }}>
-                JOIN CLUB
+                JOIN GROUP
             </a>
         </div>
 
@@ -97,7 +97,7 @@ export default function Navbar() {
                     <a href="https://chat.whatsapp.com/ETars8R7yGY7x5FwB22Ppg" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 sm:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full w-full text-sm sm:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-150" style={{
                         borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
                     }}>
-                        JOIN CLUB
+                        JOIN GROUP
                     </a>
                 </div>
             </div>

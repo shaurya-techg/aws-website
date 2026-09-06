@@ -105,12 +105,12 @@ export default function ClubLeadership() {
       {/* Section Title */}
       <div className="text-center mb-12 sm:mb-16 lg:mb-20">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent mb-4">
-          Club Leadership
+          Group Leadership
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-[#843aed] to-[#4349ff] mx-auto rounded-full"></div>
       </div>
 
-      {/* Club Leads - Bigger photos */}
+      {/* Group Leads - Bigger photos */}
       {leads.length > 0 && (
         <div className="mb-12 sm:mb-16 lg:mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-16 justify-items-center">

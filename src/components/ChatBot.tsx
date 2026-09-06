@@ -133,7 +133,7 @@ export default function ChatBot() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-sm">AWS Cloud Assistant</h3>
+                  <h3 className="text-white font-semibold text-sm">AWS Assistant</h3>
                   <p className="text-white/80 text-xs">Online</p>
                 </div>
               </div>

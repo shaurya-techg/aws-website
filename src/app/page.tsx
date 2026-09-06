@@ -80,7 +80,7 @@ export default function Home() {
         <StatsSection />
       </motion.div>
       
-      {/* Club Leadership */}
+      {/* Group Leadership */}
       
       <div className="my-8 sm:my-12 lg:my-16 bg-black w-full">
       <div className="flex flex-col md:flex-row ">
