@@ -9,7 +9,8 @@ frontend:
 
     build:
       commands:
-        - bun --env-file=.env prisma generate
+        - echo "DATABASE_URL is ${DATABASE_URL:+SET}"
+        - bun run prisma generate
         - bun run build
 
   artifacts:
