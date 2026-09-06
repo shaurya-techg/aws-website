@@ -1,23 +1,23 @@
 version: 1
-backend:
-  phases:
-    build:
-      commands:
-        - "# Execute Amplify CLI with the helper script"
-        - amplifyPush --simple
+
 frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - npm ci --cache .npm --prefer-offline
+        - npm install -g bun
+
     build:
       commands:
-        - npm run build
+        - bun --env-file=.env prisma generate
+        - bun run build
+
   artifacts:
     baseDirectory: .next
     files:
-      - "**/*"
+      - '**/*'
+
   cache:
     paths:
-      - node_modules/**/*
       - .next/cache/**/*
+      - .npm/**/*
