@@ -70,14 +70,14 @@ function StatCounter({ end, label, suffix = '', duration = 1000 }: StatCounterPr
 export default function StatsSection() {
   return (
     <div className='px-4 sm:px-8 lg:px-24'>
-      <div className="relative rounded-2xl lg:rounded-4xl p-1.5 lg:p-2" style={{
+      <div className="relative rounded-2xl lg:rounded-4xl p-1.5 lg:p-2 hover-glow" style={{
         background: 'linear-gradient(to right, #481860, #3250C6)'
       }}>
         <div className="flex flex-col sm:flex-row rounded-2xl lg:rounded-4xl text-white w-full bg-black items-center justify-between text-center py-6 sm:py-4 px-4 sm:px-8 lg:px-12 gap-6 sm:gap-4 lg:gap-0">
-          <StatCounter end={3500} label="COMMUNITY MEMBERS" suffix="+" />
-          <StatCounter end={250} label="MEMBERS" suffix="+" />
-          <StatCounter end={20} label="EVENTS" suffix="+" />
-          <StatCounter end={1} label="BRANCH" />
+          <div className="stat-item"><StatCounter end={3500} label="COMMUNITY MEMBERS" suffix="+" /></div>
+          <div className="stat-item"><StatCounter end={250} label="MEMBERS" suffix="+" /></div>
+          <div className="stat-item"><StatCounter end={20} label="EVENTS" suffix="+" /></div>
+          <div className="stat-item"><StatCounter end={1} label="BRANCH" /></div>
         </div>
       </div>
     </div>
