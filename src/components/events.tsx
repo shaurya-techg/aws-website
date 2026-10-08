@@ -144,9 +144,9 @@ export default function Events() {
                       </div>
                     </div>
                   ) : (
-                    <div className="px-5 py-3 bg-green-500/90 backdrop-blur-md rounded-full text-white text-base font-bold border border-green-400/50 shadow-lg">
+                    <div className="px-5 py-3 bg-[#FF9900]/90 backdrop-blur-md rounded-full text-white text-base font-bold border border-[#FF9900]/50 shadow-lg shadow-[#FF9900]/20">
                       <div className="flex items-center space-x-3">
-                        <div className="w-3 h-3 bg-green-300 rounded-full animate-pulse"></div>
+                        <div className="w-3 h-3 bg-amber-200 rounded-full animate-pulse"></div>
                         <span>UPCOMING</span>
                       </div>
                     </div>
