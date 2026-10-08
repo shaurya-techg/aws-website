@@ -5,6 +5,7 @@ import LoadingWrapper from "../components/LoadingWrapper";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer";
 import AnimatedBackground from "@/components/AnimatedBackgroundWrapper";
+import ScrollProgressWrapper from "@/components/ScrollProgressWrapper";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -55,16 +56,11 @@ export default function RootLayout({
         } as React.CSSProperties}
       >
         <AnimatedBackground />
-        {/* Ambient floating orbs — large, bright, and prominent */}
-        <div className="ambient-orb" style={{ width: 550, height: 550, background: 'rgba(132, 58, 237, 0.25)', top: '5%', left: '-8%', animationDelay: '0s' }} />
-        <div className="ambient-orb" style={{ width: 450, height: 450, background: 'rgba(67, 73, 255, 0.2)', top: '40%', right: '-6%', animationDelay: '5s' }} />
-        <div className="ambient-orb" style={{ width: 400, height: 400, background: 'rgba(139, 92, 246, 0.18)', bottom: '10%', left: '15%', animationDelay: '10s' }} />
-        <div className="ambient-orb" style={{ width: 350, height: 350, background: 'rgba(168, 85, 247, 0.15)', top: '70%', right: '20%', animationDelay: '15s' }} />
-        <div className="ambient-orb" style={{ width: 300, height: 300, background: 'rgba(79, 70, 229, 0.2)', top: '20%', left: '50%', animationDelay: '8s' }} />
-        {/* Nebula blobs — slow rotating, ethereal */}
-        <div className="nebula-blob" style={{ width: 600, height: 600, background: 'rgba(99, 102, 241, 0.15)', top: '25%', right: '10%', animationDelay: '3s' }} />
-        <div className="nebula-blob" style={{ width: 500, height: 500, background: 'rgba(176, 106, 224, 0.12)', bottom: '20%', left: '-8%', animationDelay: '12s' }} />
-        <div className="nebula-blob" style={{ width: 450, height: 450, background: 'rgba(132, 58, 237, 0.1)', top: '60%', left: '40%', animationDelay: '20s' }} />
+        <ScrollProgressWrapper />
+        {/* Subtle, low-contrast pastel ambient mist (understated & non-distracting) */}
+        <div className="ambient-orb" style={{ width: 600, height: 600, background: 'rgba(224, 159, 103, 0.04)', top: '5%', left: '-5%', animationDelay: '0s' }} />
+        <div className="ambient-orb" style={{ width: 500, height: 500, background: 'rgba(134, 179, 152, 0.03)', top: '45%', right: '-5%', animationDelay: '6s' }} />
+        <div className="ambient-orb" style={{ width: 450, height: 450, background: 'rgba(148, 163, 184, 0.04)', bottom: '15%', left: '20%', animationDelay: '12s' }} />
         {/* Vignette */}
         <div className="vignette-overlay" />
         <LoadingWrapper>

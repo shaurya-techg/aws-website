@@ -17,11 +17,11 @@ function StatCounter({ end, label, suffix = '', duration = 1000 }: StatCounterPr
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 1) {
+        if (entry.isIntersecting) {
           setIsVisible(true)
         }
       },
-      { threshold: 1.0 } // Component must be 100% visible
+      { threshold: 0.5 }
     )
 
     if (countRef.current) {
@@ -35,22 +35,17 @@ function StatCounter({ end, label, suffix = '', duration = 1000 }: StatCounterPr
     if (!isVisible) return
 
     let startTime: number
-    const startCount = 0
 
     const animate = (currentTime: number) => {
       if (!startTime) startTime = currentTime
       const progress = Math.min((currentTime - startTime) / duration, 1)
-      
-      // Easing function for smooth animation
       const easeOut = 1 - Math.pow(1 - progress, 3)
-      const currentCount = Math.floor(easeOut * (end - startCount) + startCount)
-      
-      setCount(currentCount)
+      setCount(Math.floor(easeOut * end))
 
       if (progress < 1) {
         requestAnimationFrame(animate)
       } else {
-        setCount(end) // Ensure we end at the exact target
+        setCount(end)
       }
     }
 
@@ -58,26 +53,51 @@ function StatCounter({ end, label, suffix = '', duration = 1000 }: StatCounterPr
   }, [isVisible, end, duration])
 
   return (
-    <div ref={countRef} className="flex-1 min-w-0">
-      <div className="text-3xl sm:text-4xl lg:text-6xl font-bold leading-tight">
+    <div ref={countRef} className="flex items-center gap-3 px-8 sm:px-12 whitespace-nowrap">
+      <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#E09F67]">
         {count}{suffix}
-      </div>
-      <div className="text-sm sm:text-lg lg:text-xl mt-1 lg:mt-2">{label}</div>
+      </span>
+      <span className="text-sm sm:text-base text-slate-400 font-medium uppercase tracking-wider">
+        {label}
+      </span>
     </div>
   )
 }
 
+const stats = [
+  { end: 3500, label: 'Community Members', suffix: '+' },
+  { end: 250, label: 'Active Members', suffix: '+' },
+  { end: 20, label: 'Events Hosted', suffix: '+' },
+  { end: 15, label: 'Workshops Conducted', suffix: '+' },
+  { end: 500, label: 'Students Mentored', suffix: '+' },
+]
+
 export default function StatsSection() {
   return (
-    <div className='px-4 sm:px-8 lg:px-24'>
-      <div className="relative rounded-2xl lg:rounded-4xl p-1.5 lg:p-2 hover-glow" style={{
-        background: 'linear-gradient(to right, #481860, #3250C6)'
-      }}>
-        <div className="flex flex-col sm:flex-row rounded-2xl lg:rounded-4xl text-white w-full bg-black items-center justify-between text-center py-6 sm:py-4 px-4 sm:px-8 lg:px-12 gap-6 sm:gap-4 lg:gap-0">
-          <div className="stat-item"><StatCounter end={3500} label="COMMUNITY MEMBERS" suffix="+" /></div>
-          <div className="stat-item"><StatCounter end={250} label="MEMBERS" suffix="+" /></div>
-          <div className="stat-item"><StatCounter end={20} label="EVENTS" suffix="+" /></div>
-          <div className="stat-item"><StatCounter end={1} label="BRANCH" /></div>
+    <div className="relative w-full overflow-hidden border-y border-white/5 bg-white/[0.01]">
+      {/* Fade edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#0a0b10] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#0a0b10] to-transparent z-10 pointer-events-none" />
+      
+      {/* Scrolling marquee */}
+      <div className="flex py-6 sm:py-8 marquee-track">
+        {/* First copy */}
+        <div className="flex shrink-0 items-center marquee-scroll">
+          {stats.map((stat, i) => (
+            <div key={`a-${i}`} className="flex items-center">
+              <StatCounter {...stat} />
+              <span className="text-white/10 text-2xl mx-2">•</span>
+            </div>
+          ))}
+        </div>
+        {/* Duplicate for seamless loop */}
+        <div className="flex shrink-0 items-center marquee-scroll" aria-hidden>
+          {stats.map((stat, i) => (
+            <div key={`b-${i}`} className="flex items-center">
+              <StatCounter {...stat} />
+              <span className="text-white/10 text-2xl mx-2">•</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

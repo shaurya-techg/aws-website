@@ -1,6 +1,30 @@
 @import "tailwindcss";
 
-/* Hide scrollbar for all webkit browsers (Chrome, Safari, Edge, Brave, etc.) */
+/* ─── CSS Custom Properties (Soft Pastel Theme) ─── */
+:root {
+  --pastel-peach: #E09F67;
+  --pastel-apricot: #F0A875;
+  --pastel-sage: #86B398;
+  --pastel-lavender: #C4B5FD;
+  --pastel-periwinkle: #A5B4FC;
+  --pastel-sky: #93C5FD;
+  --pastel-sand: #E2C799;
+  --brand-purple: #C4B5FD;
+  --brand-indigo: #A5B4FC;
+  --accent-orange: #E09F67;
+  --accent-orange-glow: rgba(224, 159, 103, 0.12);
+  --bg-deep: #0D0E15;
+}
+
+/* ─── Smooth Scrolling ─── */
+html {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar for all webkit browsers */
 ::-webkit-scrollbar {
   display: none;
   width: 0;
@@ -17,20 +41,14 @@
 
 /* Hide scrollbar for all browsers */
 * {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-}
-
-html {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -87,6 +105,7 @@ h6 {
   pointer-events: auto;
 }
 
+/* ─── Glass Morphism Cards ─── */
 .primary {
   color: #fcd8ff;
   text-align: center;
@@ -115,6 +134,161 @@ h6 {
   background: rgba(132, 68, 232, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(20px);
+}
+
+/* ─── Floating Glass Navbar ─── */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.navbar-glass-scrolled {
+  background: rgba(3, 0, 18, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(132, 58, 237, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Nav link pill hover */
+.nav-link-pill {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+}
+
+.nav-link-pill:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-link-pill::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 20px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--accent-orange));
+  border-radius: 2px;
+  transition: transform 0.2s ease;
+}
+
+.nav-link-pill:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* CTA Button — soft pastel peach */
+.nav-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #0d0e15;
+  background: #E09F67;
+  border-radius: 9999px;
+  border: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 10px rgba(224, 159, 103, 0.2);
+}
+
+.nav-cta-button:hover {
+  transform: translateY(-1px);
+  background: #e9aa77;
+  box-shadow: 0 4px 14px rgba(224, 159, 103, 0.3);
+}
+
+/* Mobile nav link */
+.mobile-nav-link {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.1em;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+}
+
+.mobile-nav-link:hover {
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  transform: scale(1.03);
+}
+
+/* ─── Hero Typography ─── */
+.hero-gradient-text {
+  background: linear-gradient(135deg, #F0A875 0%, #E2C799 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0d0e15;
+  background: #E09F67;
+  border-radius: 9999px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(224, 159, 103, 0.2);
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-2px);
+  background: #e9aa77;
+  box-shadow: 0 6px 20px rgba(224, 159, 103, 0.28);
+}
+
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  transition: all 0.25s ease;
+}
+
+.hero-cta-secondary:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ─── Scroll Progress Bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-purple), var(--accent-orange), var(--brand-indigo));
+  z-index: 100;
+  transform-origin: left;
 }
 
 /* Gradient Animation for Teams Page */
@@ -337,3 +511,96 @@ h6 {
   opacity: 0.15;
   z-index: 0;
 }
+
+/* ─── 3D Tilt Card ─── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.tilt-card-inner {
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+}
+
+.tilt-card:hover .tilt-card-inner {
+  transform: translateZ(20px);
+}
+
+.tilt-card-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.tilt-card:hover .tilt-card-spotlight {
+  opacity: 1;
+}
+
+/* ─── Social Icons Brand Colors ─── */
+.social-linkedin:hover {
+  color: #0077B5 !important;
+  border-color: #0077B5 !important;
+  background: rgba(0, 119, 181, 0.1) !important;
+}
+
+.social-instagram:hover {
+  color: #E4405F !important;
+  border-color: #E4405F !important;
+  background: rgba(228, 64, 95, 0.1) !important;
+}
+
+.social-email:hover {
+  color: #EA4335 !important;
+  border-color: #EA4335 !important;
+  background: rgba(234, 67, 53, 0.1) !important;
+}
+
+.social-meetup:hover {
+  color: #ED1C40 !important;
+  border-color: #ED1C40 !important;
+  background: rgba(237, 28, 64, 0.1) !important;
+}
+
+/* ─── Marquee Animation ─── */
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Bento Card ─── */
+.bento-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 40px rgba(132, 58, 237, 0.08);
+}
+
+/* ─── Section Divider ─── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
+}
+

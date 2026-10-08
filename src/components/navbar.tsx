@@ -3,12 +3,23 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../../public/new_logo.jpeg';
+import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+
+const navLinks = [
+  { href: '/', label: 'HOME' },
+  { href: '/events', label: 'EVENTS' },
+  { href: '/teams', label: 'TEAM' },
+  { href: '/alumni', label: 'ALUMNI' },
+];
 
 export default function Navbar() {
+    const pathname = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [isMounted, setIsMounted] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         setIsMounted(true);
@@ -19,12 +30,15 @@ export default function Navbar() {
         
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
+            setScrolled(currentScrollY > 20);
+            
             if (currentScrollY < 50) {
                 setShowNavbar(true);
             } else if (currentScrollY > lastScrollY) {
-                setShowNavbar(false); // scrolling down
+                setShowNavbar(false);
+                setIsMenuOpen(false);
             } else {
-                setShowNavbar(true); // scrolling up
+                setShowNavbar(true);
             }
             setLastScrollY(currentScrollY);
         };
@@ -33,75 +47,158 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [lastScrollY, isMounted]);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => { document.body.style.overflow = ''; };
+    }, [isMenuOpen]);
+
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    // The home page uses the new AWS CloudStation Console layout
+    if (pathname === '/') {
+        return null;
+    }
+
     return (
-    <div className={`w-full px-10 sm:px-20 lg:px-30 fixed top-0 left-0 z-50 bg-[#030012]/95 backdrop-blur-sm transition-all duration-150 ${!isMounted || showNavbar ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-        <div className="w-full flex justify-between items-center py-2 sm:py-3 lg:py-4">
-            {/* Left side - Logo */}
-           
-            <a href='/admin/dashboard'>
-                <div className='flex items-center'>
-                    <Image src={Logo.src} alt="AWS Student Builder Group Logo" width={60} height={60} className="h-12 sm:h-14 lg:h-15 w-auto object-contain rounded-md px-1 sm:px-1.5"/>
-                    <div className='flex flex-col justify-center items-center text-sm sm:text-lg lg:text-xl p-1 sm:p-2'>
-                        <p className="font-bold text-lg sm:text-2xl text-white">GGSIPU</p>
-                        <p className="text-sm sm:text-base text-[#9C6CFE] font-semibold">EAST DELHI</p>
-                    </div>
-               </div>
-            </a>
-            
-            {/* Desktop Navigation - Hidden on md screens and below */}
-            <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 text-white font-semibold py-4 lg:py-6 space-x-8 xl:space-x-16">
-                <Link href='/' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 text-sm xl:text-base">HOME</Link>
-                <a href='/events' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 text-sm xl:text-base">EVENTS</a>
-                <a href='/teams' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 text-sm xl:text-base">TEAM</a>
-                <a href='/alumni' className="cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 text-sm xl:text-base">ALUMNI</a>
-            </div>
-
-            {/* Mobile/Tablet Menu Button - Visible on md screens and below */}
-            <div className="lg:hidden flex items-center">
-                <button
-                    onClick={toggleMenu}
-                    className="text-white p-2 rounded-md hover:bg-white/10 transition-colors duration-150"
-                >
-                    <div className="space-y-1">
-                        <div className={`w-5 sm:w-6 h-0.5 bg-white transition-all duration-150 ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
-                        <div className={`w-5 sm:w-6 h-0.5 bg-white transition-all duration-150 ${isMenuOpen ? 'opacity-0' : ''}`}></div>
-                        <div className={`w-5 sm:w-6 h-0.5 bg-white transition-all duration-150 ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
-                    </div>
-                </button>
-            </div>
-            
-            {/* Desktop Join Button - Hidden on md screens and below */}
-            <a href="https://www.meetup.com/aws-cloud-club-at-ggsipu" target="_blank" rel="noopener noreferrer" className="hidden lg:block px-3 lg:px-4 py-2 lg:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full text-sm xl:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-150" style={{
-                borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
-            }}>
-                JOIN GROUP
-            </a>
-        </div>
-
-        {/* Mobile/Tablet Dropdown Menu */}
-        <div className={`lg:hidden absolute top-full left-0 w-full bg-[#030012] backdrop-blur-sm border-t text-center border-white/20 transition-all duration-200 ease-in-out z-50 ${
-            isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'
+    <>
+      {/* ─── Floating Pill Navbar ─── */}
+      <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-300 ${
+        !isMounted || showNavbar ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+      }`}>
+        <nav className={`navbar-glass w-full max-w-5xl mt-3 sm:mt-4 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 rounded-2xl sm:rounded-full transition-all duration-300 ${
+          scrolled ? 'navbar-glass-scrolled' : ''
         }`}>
-            <div className="flex flex-col space-y-3 sm:space-y-4 p-4 sm:p-6">
-                <Link href="/" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 py-2 border-b border-white/10 text-sm sm:text-base">HOME</Link>
-                <a href="/events" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 py-2 border-b border-white/10 text-sm sm:text-base">EVENTS</a>
-                <a href="/teams" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 py-2 border-b border-white/10 text-sm sm:text-base">TEAM</a>
-                <a href="/alumni" className="text-white font-semibold cursor-pointer hover:text-[#FCD8FF] transition-colors duration-150 py-2 border-b border-white/10 text-sm sm:text-base">ALUMNI</a>
-                
-                {/* Mobile Join Button */}
-                <div className="pt-3 sm:pt-4">
-                    <a href="https://chat.whatsapp.com/ETars8R7yGY7x5FwB22Ppg" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 sm:py-3 bg-transparent border-2 bg-gradient-to-b from-[#843aed] to-[#4349ff] bg-clip-text text-transparent font-semibold rounded-full w-full text-sm sm:text-base hover:bg-gradient-to-b hover:from-[#843aed]/10 hover:to-[#4349ff]/10 transition-all duration-150" style={{
-                        borderImage: 'linear-gradient(to top right, #843aed, #4349ff) 1',
-                    }}>
-                        JOIN GROUP
-                    </a>
+          <div className="w-full flex justify-between items-center">
+            {/* Left — Logo */}
+            <a href='/admin/dashboard' className="flex-shrink-0">
+              <div className='flex items-center gap-2 sm:gap-3'>
+                <Image src={Logo.src} alt="AWS Student Builder Group Logo" width={48} height={48} className="h-9 sm:h-10 lg:h-11 w-auto object-contain rounded-lg"/>
+                <div className='flex flex-col'>
+                  <p className="font-bold text-sm sm:text-base text-white leading-tight">GGSIPU</p>
+                  <p className="text-xs text-[#FF9900] font-semibold leading-tight">EAST DELHI</p>
                 </div>
+              </div>
+            </a>
+            
+            {/* Center — Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="nav-link-pill"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
-        </div>
-    </div>
+
+            {/* Right — Desktop CTA */}
+            <a 
+              href="https://www.meetup.com/aws-cloud-club-at-ggsipu" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hidden lg:flex nav-cta-button"
+            >
+              JOIN GROUP
+            </a>
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={toggleMenu}
+              className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-xl hover:bg-white/10 transition-colors duration-200"
+              aria-label="Toggle menu"
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <motion.div
+                  className="w-full h-[2px] bg-white rounded-full origin-center"
+                  animate={isMenuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.div
+                  className="w-full h-[2px] bg-white rounded-full"
+                  animate={isMenuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+                  transition={{ duration: 0.15 }}
+                />
+                <motion.div
+                  className="w-full h-[2px] bg-white rounded-full origin-center"
+                  animate={isMenuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </div>
+            </button>
+          </div>
+        </nav>
+      </div>
+
+      {/* ─── Full-Screen Mobile Overlay ─── */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-[#030012]/95 backdrop-blur-xl"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Menu Content */}
+            <div className="relative h-full flex flex-col items-center justify-center gap-6 sm:gap-8 px-8">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3, delay: 0.05 + i * 0.08 }}
+                >
+                  <Link
+                    href={link.href}
+                    className="mobile-nav-link"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+
+              {/* Mobile CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: 0.4 }}
+                className="mt-4"
+              >
+                <a
+                  href="https://www.meetup.com/aws-cloud-club-at-ggsipu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="nav-cta-button text-lg px-10 py-4"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  JOIN GROUP
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
     )
 }
